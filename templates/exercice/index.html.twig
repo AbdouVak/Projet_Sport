@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ExerciceController!{% endblock %}
+
+{% block body %}
+    <h1>Liste exercice</h1>
+
+    <table class="tableau-style">
+        <thead>
+            <tr>
+                <th>Numero</th>
+                <th>Nom</th>
+                <th>Muscle</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for exercice in exercices %}
+                <tr>
+                    <td>{{exercice.id}}</td> 
+                    <td>{{exercice.nom}}</td>  
+                    {% for muscles in exercice.getCategorieMuscles %}
+                            <td>{{muscles.nom}}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        
+    <a href="{{ path('add_exercice') }}">Ajouter Exerice</a>
+{% endblock %}
