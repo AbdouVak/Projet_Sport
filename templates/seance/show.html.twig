@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title %}Hello SeanceController!{% endblock %}
+
+{% block body %}
+    <div class='containerSeance'> 
+        <div>
+            Seance: <br>
+            {{seance.nom}}
+        </div>
+        
+        <div>
+            Exercice: <br>
+            {% for exercice in seance.getSeanceExercices %}
+                {{ exercice.getExercice}}<br>
+            {% endfor %}
+            <a href="{{ path('add_seance_exercice',{'id': seance.id}) }}">Ajouter Exercice</a>
+   
+        </div>
+    </div>
+{% endblock %}
