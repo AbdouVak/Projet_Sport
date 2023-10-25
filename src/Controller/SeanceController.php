@@ -15,12 +15,12 @@ class SeanceController extends AbstractController
 {
     #[Route('/seance/add', name: 'add_seance')]
     #[Route('/seance/{id}/edit', name: 'edit_seance')]
-    public function add(ManagerRegistry $doctrine, Seance $seance = null, Request $request): Response{
+    public function add(ManagerRegistry $doctrine, Seance $seance = null,Request $request): Response{
 
         if(!$seance){
             $seance = new Seance();
         }
-        
+
         $form = $this->createForm(SeanceType::class, $seance);
         $form->handleRequest($request);
         
@@ -29,13 +29,24 @@ class SeanceController extends AbstractController
             $entityManager = $doctrine->getManager();
             $entityManager->persist($seance);
             $entityManager->flush();
-            return $this->redirectToRoute('app_seance');
+            return $this->redirectToRoute('add_seance_seance',['seance_id'=>$seance->getId()]
+            );
         }
     
         // vue pour afficher formulaire d'ajout
         return $this->render('seance/add.html.twig', [
             'formAddseance' => $form->createView(),
-            'edit'=> $seance->getId()
+            'edit'=> $seance->getId(),
+        ]);    
+    }
+
+    #[Route('/seance/{id}', name: 'show_seance')]
+    public function show(seance $seance, SeanceRepository $seanceRepository): Response{
+
+        $seanceById = $seanceRepository->find($seance->getId());
+
+        return $this->render('seance/show.html.twig', [
+            'seance' => $seanceById
         ]);    
     }
 
