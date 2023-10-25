@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SeanceController!{% endblock %}
+
+{% block body %}
+    <h1>Liste seance</h1>
+
+    <table class="tableau-style">
+        <thead>
+            <tr>
+                <th>Numero</th>
+                <th>Nom</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for seance in seances %}
+                <tr>
+                    <td>{{seance.id}}</td> 
+                    <td>{{seance.nom}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        
+     <a href="{{ path('add_seance') }}">Ajouter Seance</a>
+{% endblock %}

@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Seance;
+use App\Form\SeanceType;
+use App\Repository\SeanceRepository;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+class SeanceController extends AbstractController
+{
+    #[Route('/seance/add', name: 'add_seance')]
+    #[Route('/seance/{id}/edit', name: 'edit_seance')]
+    public function add(ManagerRegistry $doctrine, Seance $seance = null, Request $request): Response{
+
+        if(!$seance){
+            $seance = new Seance();
+        }
+        
+        $form = $this->createForm(SeanceType::class, $seance);
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted() && $form->isValid()){
+            $seance = $form->getData();
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($seance);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_seance');
+        }
+    
+        // vue pour afficher formulaire d'ajout
+        return $this->render('seance/add.html.twig', [
+            'formAddseance' => $form->createView(),
+            'edit'=> $seance->getId()
+        ]);    
+    }
+
+    #[Route('/seance', name: 'app_seance')]
+    public function index(SeanceRepository $seanceRepository): Response
+    {
+        $seances = $seanceRepository->findAll();
+        return $this->render('seance/index.html.twig', [
+            "seances" => $seances
+        ]);
+    }
+}
