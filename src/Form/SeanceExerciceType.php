@@ -2,30 +2,30 @@
 
 namespace App\Form;
 
-use App\Entity\Exercice;
-use App\Entity\Seance;
+use App\Entity\SeanceExercice;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class SeanceType extends AbstractType
+class SeanceExerciceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('nom',TextType::class)
-        ->add('submit',SubmitType::class)
-
+            ->add('serie')
+            ->add('repetition')
+            ->add('poid')
+            ->add('exercice')
+            ->add('seance')
+            ->add('submit',SubmitType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Seance::class,
+            'data_class' => SeanceExercice::class,
         ]);
     }
 }
