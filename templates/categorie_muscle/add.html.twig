@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ExerciceController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="formContainer">
+            {{ form_start(formAddcategorieMuscle) }}
+                {{ form_row(formAddcategorieMuscle.nom) }}
+            {{ form_end(formAddcategorieMuscle) }}
+        </div>
+    </div>
+{% endblock %}
