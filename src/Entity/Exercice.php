@@ -24,6 +24,7 @@ class Exercice
     #[ORM\OneToMany(mappedBy: 'exercice', targetEntity: SeanceExercice::class)]
     private Collection $seanceExercices;
 
+
     public function __construct()
     {
         $this->CategorieMuscles = new ArrayCollection();
@@ -71,6 +72,10 @@ class Exercice
 
         return $this;
     }
+    
+    public function __toString(){
+        return $this->nom;
+    }
 
     /**
      * @return Collection<int, SeanceExercice>
@@ -101,6 +106,5 @@ class Exercice
 
         return $this;
     }
-
 
 }
