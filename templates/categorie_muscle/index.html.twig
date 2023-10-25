@@ -4,24 +4,25 @@
 
 {% block body %}
     <h1>Liste muscles</h1>
-
-    <table class="tableau-style">
-        <thead>
-            <tr>
-                <th>Numero</th>
-                <th>Nom</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            {% for muscle in muscles %}
-            <tr>
-                <td>{{ muscle.id }}</td> 
-                <td>{{ muscle.nom }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class='container'>
         
+        <table class="tableau-style">
+            <thead>
+                <tr>
+                    <th>Numero</th>
+                    <th>Nom</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for muscle in muscles %}
+                <tr>
+                    <td>{{ muscle.id }}</td> 
+                    <td>{{ muscle.nom }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     <a href="{{ path('add_categorie_muscle') }}">Ajouter muscle</a>
 {% endblock %}
