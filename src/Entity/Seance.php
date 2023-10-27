@@ -21,6 +21,9 @@ class Seance
     #[ORM\OneToMany(mappedBy: 'seance', targetEntity: SeanceExercice::class)]
     private Collection $seanceExercices;
 
+    #[ORM\ManyToOne(inversedBy: 'seances')]
+    private ?User $user = null;
+
 
     public function __construct()
     {
@@ -75,5 +78,17 @@ class Seance
     }
     public function __toString(){
         return $this->nom;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }
