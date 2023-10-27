@@ -9,14 +9,14 @@
         {% endblock %}
 
         {% block javascript %}
-            <link rel="javascript" href="{{ asset( 'js/javascript.js')}}"> 
         {% endblock %}
     </head>
     <body>
-        {% if app.user%}
+        {% if app.user %}
             <a href=" {{ path('app_logout') }}">Se déconnecter</a>
             <a href="">Mon profil</a>
             <a href=" {{ path('app_home') }}">Accueil</a>
+            <a href=" {{ path('app_seance') }}">Séance</a>
         {% else %}
             <a href=" {{ path('app_login') }}">Se connecter</a>
             <a href=" {{ path('app_register') }}">S'enregister</a>
