@@ -3,50 +3,49 @@
     padding : 0;
     vertical-align: top;
     font-family: "Poppins";
+    background-color: #1E1E1E;
 }
 
-.container{
-    background-color: #4679A6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-left: 20%;
-    margin-right: 20%;
-    padding: 20px;
-    gap: 20px;
-}
-
-.cardSeance{
-    background-color: #1E3E59;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 150px;
-    padding: 5px;
-    color: white;
-}
-
-.cardSeance h3{
-    background-color: #63A5BF;
-    color: white;
-    padding: 3px;
-    margin: 5px;
-}
-
-.cardSeance a{
-    color: white;
+a{
     text-decoration: none;
 }
 
 .containerSeance{
-  background-color: #4679A6;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin-left: 20%;
-  margin-right: 20%;
-  padding: 20px;
-  gap: 20px;
+    background-color: #1E1E1E;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    margin-left: 20%;
+    margin-right: 20%;
 }
+
+.containerSeance h1{
+    color: #AAFF64;
+}
+
+.containerCard{
+    display: flex;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.cardSport{
+    background-color: #AAFF64;
+    text-decoration: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    margin: 5px;
+    width: 150px;
+    height: 150px;
+}
+
+.cardSport h3{
+    text-align: center;
+    background-color: #AAFF64;
+    color: #1E1E1E;
+}
+
