@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Seance;
 use App\Form\SeanceType;
+use App\Repository\UserRepository;
 use App\Repository\SeanceRepository;
+use App\Repository\ExerciceRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,46 +17,41 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SeanceController extends AbstractController
 {
     #[Route('/seance/add', name: 'add_seance')]
-    #[Route('/seance/{id}/edit', name: 'edit_seance')]
-    public function add(ManagerRegistry $doctrine, Seance $seance = null,Request $request): Response{
+    public function add(ManagerRegistry $doctrine): Response{
+        $seance = new Seance();
+        $seance->setNom($_POST['nom']);
+        $seance->setUser($this->getUser());
 
-        if(!$seance){
-            $seance = new Seance();
-        }
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($seance);
+        $entityManager->flush();
 
-        $form = $this->createForm(SeanceType::class, $seance);
-        $form->handleRequest($request);
-        
-        if($form->isSubmitted() && $form->isValid()){
-            $seance = $form->getData();
-            $entityManager = $doctrine->getManager();
-            $entityManager->persist($seance);
-            $entityManager->flush();
-            return $this->redirectToRoute('add_seance_seance',['seance_id'=>$seance->getId()]
-            );
-        }
-    
-        // vue pour afficher formulaire d'ajout
-        return $this->render('seance/add.html.twig', [
-            'formAddseance' => $form->createView(),
-            'edit'=> $seance->getId(),
-        ]);    
+        return $this->render('home/index.html.twig');    
+    }
+
+    #[Route('/seance/showAdd/', name: 'show_add_seance')]
+    public function showAdd(): Response{
+
+        return $this->render('seance/add.html.twig');    
     }
 
     #[Route('/seance/{id}', name: 'show_seance')]
-    public function show(seance $seance, SeanceRepository $seanceRepository): Response{
+    public function show(seance $seance, SeanceRepository $seanceRepository,ExerciceRepository $exerciceRepository): Response{
 
         $seanceById = $seanceRepository->find($seance->getId());
+        
+        $exercices = $exerciceRepository->findAll();
 
         return $this->render('seance/show.html.twig', [
-            'seance' => $seanceById
+            'seance' => $seanceById,
+            'exercices' => $exercices
         ]);    
     }
 
     #[Route('/seance', name: 'app_seance')]
     public function index(SeanceRepository $seanceRepository): Response
     {
-        $seances = $seanceRepository->findAll();
+        $seances = $seanceRepository->seanceUtilisateur( $this->getUser()->getId());
         return $this->render('seance/index.html.twig', [
             "seances" => $seances
         ]);
