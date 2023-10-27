@@ -2,19 +2,42 @@
 {% block title %}Hello SeanceController!{% endblock %}
 
 {% block body %}
-    <div class='containerSeance'> 
-        <div>
-            Seance: <br>
-            {{seance.nom}}
-        </div>
-        
-        <div>
-            Exercice: <br>
+    <div class='seanceDescContainer'> 
+        <h1>{{seance.nom}}</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Exerice</th>
+                    <th>Serie</th>
+                    <th>Repetition</th>
+                    <th>poid</th>
+                </tr>
+            </thead>
+
             {% for exercice in seance.getSeanceExercices %}
-                {{ exercice.getExercice}}<br>
+            </tbody>
+                <tr>
+                    <td><a href="{{ path('show_exercice',{'id':  exercice.getExercice.getId}) }}">{{ exercice.getExercice}}</a></td>
+                    <td>{{ exercice.getSerie}}</td>
+                    <td>{{ exercice.getRepetition}}</td>
+                    <td>{{ exercice.getPoid}}</td>
+                </tr>
+            </tbody>
             {% endfor %}
-            <a href="{{ path('add_seance_exercice',{'id': seance.id}) }}">Ajouter Exercice</a>
-   
-        </div>
+        </table>
+            
+
+        <form action="{{ path('add_exericeToSeance' ,{'seance_id': seance.id}) }}" method="post" > 
+            <label for="exerice-select">Choisie un exerice:</label>
+            <select name="exercices" id="exercice-select">
+                {% for exercice in exercices %}
+                    <option value="{{ exercice.id }}">{{ exercice.nom }}</option>
+                {% endfor %}
+            </select>
+            <input type="number" name="serie">
+            <input type="number" name="repetition">
+            <input type="number" name="poid">
+            <input type="submit" value="ajouter module"></i>
+        </form>
     </div>
 {% endblock %}
