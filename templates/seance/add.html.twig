@@ -3,10 +3,8 @@
 {% block title %}Hello ExerciceController!{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="formContainer">
-            {{ form_start(formAddseance) }}
-            {{ form_end(formAddseance) }}
-        </div>
-    </div>
+    <form action="{{ path('add_seance') }}" method="post" >
+        <input type="string" name="nom">
+        <input type="submit" value="ajouter seance"></i>
+    </form>
 {% endblock %}
