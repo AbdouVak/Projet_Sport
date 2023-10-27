@@ -3,5 +3,24 @@
 {% block title %}Hello ExerciceController!{% endblock %}
 
 {% block body %}
-    <h1>{{exercice.nom}}</h1>
+<h1>{{exercice.nom}}</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>muscle</th>
+        </tr>
+    </thead>
+
+    {% for muscle in exercice.getCategorieMuscles %}
+    <tbody>
+        <tr>
+            <th>{{ muscle.nom }}</th>
+        </tr>
+    </tbody>
+    {% endfor %}  
+</table>
+
+    
+
 {% endblock %}
