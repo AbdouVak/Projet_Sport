@@ -2,19 +2,30 @@
 {% block title %}Hello SeanceController!{% endblock %}
 
 {% block body %}
-    <div class='container'>
+    <div class='containerSeance'>
+    <h1>Vos Séance</h1>
+
+    
+    {# cet div permet de contenir les séances et l'ajout des séances #}
+    <div class='containerCard'>
+
+        {# ces lignes de code créerons des card des séances #}
         {% for seance in seances %}
-            <div class='cardSeance'>
-                <h3>Seance:</h3>
-                <td><a href="{{ path('show_seance' ,{'id': seance.id}) }}">{{seance.nom}}</a></td>
-                <h3>Exerice:</h3>
-                <td>
-                    {% for seanceExercice in seance.getSeanceExercices %}
-                        {{seanceExercice.getExercice.nom}}<br>
-                    {% endfor %}
-                </td>
+        <a href="{{ path('show_seance',{'id': seance.id}) }}">
+            <div class='cardSport'>
+                <h3>{{seance.nom}}</h3>
             </div>
-        {% endfor %}
+        </a>
+        {% endfor %} 
+
+        {# ces lignes de code créerons une card qui permet d'ajouter une séance#}
+        <a href="{{ path('show_add_seance') }}">
+            <div class='cardSport'>
+                <h3>Ajouter Seance</h3>
+            </div>
+        </a>
     </div>
-    <a href="{{ path('add_seance') }}">Ajouter Seance</a>
+    </div>
+
+
 {% endblock %}
