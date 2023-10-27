@@ -46,4 +46,19 @@ class SeanceRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function seanceUtilisateur($user_id): array
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('s')
+            ->from('App\Entity\Seance', 's')
+            ->where('s.user = ?1')
+            ->setParameter(1,$user_id);
+
+        // renvoyer le résultat
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
 }
