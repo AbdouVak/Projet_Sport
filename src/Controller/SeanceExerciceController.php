@@ -16,29 +16,26 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class SeanceExerciceController extends AbstractController
 {
-    #[Route('/seance/exercice/add/{seance_id}', name: 'add_seance_exercice')]
-    #[Route('/seance/exercice/{id}/edit', name: 'edit_seance_exercice')]
-    public function addSeanceExercice(ManagerRegistry $doctrine, SeanceExercice $seanceExercice = null,Request $request): Response{
-        if(!$seanceExercice){
-            $seanceExercice = new SeanceExercice();
-        }
-        $form = $this->createForm(SeanceExerciceType::class, $seanceExercice);
-        $form->handleRequest($request);
+    #[Route('/seance/exercice/add/{seance_id}', name: 'add_exericeToSeance')]
+    #[ParamConverter('seance', options: ['id' => 'seance_id'])]
+    public function addSeanceExercice(Seance $seance,ExerciceRepository $exerciceRepository,ManagerRegistry $doctrine): Response{
+
+        $exercice = $exerciceRepository->find($_POST['exercices']);
+
+        $seanceExercice = new SeanceExercice();
+        $seanceExercice->setExercice($exercice);
+        $seanceExercice->setSeance($seance);
+        $seanceExercice->setSerie($_POST['serie']);
+        $seanceExercice->setRepetition($_POST['repetition']);
+        $seanceExercice->setPoid($_POST['poid']);
+
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($seanceExercice);
+        $entityManager->flush();
         
-        if($form->isSubmitted() && $form->isValid()){
-            $seanceExercice = $form->getData();
-            $entityManager = $doctrine->getManager();
-            $entityManager->persist($seanceExercice);
-            $entityManager->flush();
-            return $this->redirectToRoute('app_seance');
-        }
-    
-        // vue pour afficher formulaire d'ajout
-        return $this->render('seance_exercice/add.html.twig', [
-            'formAddseanceExercice' => $form->createView(),
-            'edit'=> $seanceExercice->getId(),
-        ]);    
+        return $this->redirectToRoute('show_seance',['id'=>$seance->getId()]);      
     }
+
 
     #[Route('/seance/exercice', name: 'app_seance_exercice')]
     public function index(): Response
