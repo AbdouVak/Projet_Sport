@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TopicController!{% endblock %}
+
+{% block body %}
+    <div id='formAddTopic'>
+        <form action="{{ path('add_topic') }}" method="post" >
+            <label for="titre">Titre :</label>
+            <input type="string" name="titre">
+            <label for="contenue">Contenue :</label>
+            <textarea type="textarea" name="contenue"></textarea>
+            <input type="submit" value="ajouter topic"></i>
+        </form>
+    </div>
+{% endblock %}
