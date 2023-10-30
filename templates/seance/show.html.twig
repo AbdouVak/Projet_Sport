@@ -2,8 +2,9 @@
 {% block title %}Hello SeanceController!{% endblock %}
 
 {% block body %}
-    <div class='seanceDescContainer'> 
+    <div id='showSeance'> 
         <h1>{{seance.nom}}</h1>
+
         <table>
             <thead>
                 <tr>
@@ -17,7 +18,7 @@
             {% for exercice in seance.getSeanceExercices %}
             </tbody>
                 <tr>
-                    <td><a href="{{ path('show_exercice',{'id':  exercice.getExercice.getId}) }}">{{ exercice.getExercice}}</a></td>
+                    <td><a href="{{ path('show_exercice',{'id':  exercice.getExercice.getId}) }}">{{exercice.getExercice}}</a></td>
                     <td>{{ exercice.getSerie}}</td>
                     <td>{{ exercice.getRepetition}}</td>
                     <td>{{ exercice.getPoid}}</td>
@@ -25,19 +26,24 @@
             </tbody>
             {% endfor %}
         </table>
-            
 
-        <form action="{{ path('add_exericeToSeance' ,{'seance_id': seance.id}) }}" method="post" > 
-            <label for="exerice-select">Choisie un exerice:</label>
-            <select name="exercices" id="exercice-select">
-                {% for exercice in exercices %}
-                    <option value="{{ exercice.id }}">{{ exercice.nom }}</option>
-                {% endfor %}
-            </select>
-            <input type="number" name="serie">
-            <input type="number" name="repetition">
-            <input type="number" name="poid">
-            <input type="submit" value="ajouter module"></i>
-        </form>
+
+        <div class='formAddSeance'>
+            <form action="{{ path('add_exericeToSeance' ,{'seance_id': seance.id}) }}" method="post" > 
+                <label for="exerice-select">Choisie un exerice :</label>
+                <select name="exercices" id="exercice-select">
+                    {% for exercice in exercices %}
+                        <option value="{{ exercice.id }}">{{ exercice.nom }}</option>
+                    {% endfor %}
+                </select>
+                <label for="serie">Serie :</label>
+                <input type="number" name="serie">
+                <label for="repetition">Repetition :</label>
+                <input type="number" name="repetition">
+                <label for="poid">Poid :</label>
+                <input type="number" name="poid">
+                <input type="submit" value="ajouter exercice"></i>
+            </form>
+        </div>
     </div>
 {% endblock %}
