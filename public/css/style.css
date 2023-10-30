@@ -3,12 +3,19 @@
     padding : 0;
     vertical-align: top;
     font-family: "Poppins";
+}
+
+body{
     background-color: #1E1E1E;
+    justify-content: center;
 }
 
 a{
     text-decoration: none;
+    color: #AAFF64;
 }
+
+
 
 .containerSeance{
     background-color: #1E1E1E;
@@ -49,3 +56,72 @@ a{
     color: #1E1E1E;
 }
 
+
+#registerForm{
+    background-color: aliceblue;
+    display: flex;
+    justify-content: center;
+    
+    margin-left: 40%;
+    margin-right: 40%;
+    padding: 20px;
+    width: 20%;
+}
+
+#showSeance{
+    width: 50%;
+    background-color: #AAFF64;
+    box-shadow: #AAFF64 0px 4px 12px;
+    display: flex;
+    border-radius: 10px;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 50px;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+#showSeance h1{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#showSeance a{
+    color: #1E1E1E;
+}
+
+#showSeance td{
+    text-align: center;
+}
+
+.formAddSeance{
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.formAddSeance form{
+    display: flex;
+    flex-direction: column;
+}
+
+.formAddSeance select,input{
+    width: 100px;
+}
+
+#formAddTopic{
+    background-color: #AAFF64;
+    width: 30%;
+}
+
+#formAddTopic form{
+    display: flex;
+    flex-direction: column;
+}
+
+#formAddTopic textarea{
+    width: 200px;
+    height: 50px;
+    margin-bottom: 20px;
+}
