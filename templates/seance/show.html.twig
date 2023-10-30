@@ -11,17 +11,30 @@
                     <th>Exerice</th>
                     <th>Serie</th>
                     <th>Repetition</th>
-                    <th>poid</th>
+                    <th>Poid</th>
+                    <th>Edit</th>
                 </tr>
             </thead>
 
             {% for exercice in seance.getSeanceExercices %}
+            {{ dump(exercice)}}
             </tbody>
                 <tr>
-                    <td><a href="{{ path('show_exercice',{'id':  exercice.getExercice.getId}) }}">{{exercice.getExercice}}</a></td>
-                    <td>{{ exercice.getSerie}}</td>
-                    <td>{{ exercice.getRepetition}}</td>
-                    <td>{{ exercice.getPoid}}</td>
+                    <form>
+
+                    <td>
+                        <select name="exercices" id="exercice-select">
+                            
+                            {% for exercice in exercices %}
+                                <option value="{{ exercice.id }}">{{ exercice.nom }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <a href="{{ path('show_exercice',{'id':  exercice.getExercice.getId}) }}">{{exercice.getExercice}}</a>
+                    <td><input type="number" value="{{ exercice.getSerie}}"></td>
+                    <td><input type="number" value="{{ exercice.getRepetition}}"></td>
+                    <td><input type="number" value="{{ exercice.getPoid}}"></td>
+                    </form>
                 </tr>
             </tbody>
             {% endfor %}
