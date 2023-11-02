@@ -2,30 +2,42 @@
 {% block title %}Hello SeanceController!{% endblock %}
 
 {% block body %}
-    <div class='containerSeance'>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <form action="{{ path('add_seance') }}" method="post" >
+                <input type="string" name="nom">
+                <input type="submit" value="ajouter seance"></i>
+            </form>
+            <span class="close">&times;</span>
+        </div>
+    </div>
+
+    <div id='seanceContainer'>
     <h1>Vos Séance</h1>
 
     
     {# cet div permet de contenir les séances et l'ajout des séances #}
-    <div class='containerCard'>
 
         {# ces lignes de code créerons des card des séances #}
-        {% for seance in seances %}
-        <a href="{{ path('show_seance',{'id': seance.id}) }}">
-            <div class='cardSport'>
-                <h3>{{seance.nom}}</h3>
-            </div>
-        </a>
-        {% endfor %} 
-
+        <div class='cardContainer'>
+            {% for seance in seances %}
+            <a href="{{ path('show_seance',{'id': seance.id}) }}">
+                <div class='cardSeance'>
+                    <h3>{{seance.nom}}</h3>
+                </div>
+            </a> 
+            {% endfor %} 
+        
         {# ces lignes de code créerons une card qui permet d'ajouter une séance#}
-        <a href="{{ path('show_add_seance') }}">
-            <div class='cardSport'>
-                <h3>Ajouter Seance</h3>
-            </div>
-        </a>
+            <a id="ajouterSeance">
+                <div class='cardSeance'>
+                    <h3>Ajouter Seance</h3>
+                </div>
+            </a>
+        </div>
     </div>
-    </div>
-
 
 {% endblock %}
