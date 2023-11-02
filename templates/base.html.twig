@@ -8,15 +8,19 @@
             <link rel="stylesheet" href="{{ asset( 'css/style.css')}}"> 
         {% endblock %}
 
-        {% block javascript %}
-        {% endblock %}
+        
     </head>
     <body>
         {% if app.user %}
-            <a href=" {{ path('app_logout') }}">Se déconnecter</a>
-            <a href="">Mon profil</a>
-            <a href=" {{ path('app_home') }}">Accueil</a>
-            <a href=" {{ path('app_seance') }}">Séance</a>
+            <div id='navBar'> 
+                <a href=" {{ path('app_logout') }}"><div class='navItem'>Se déconnecter</div></a>
+                <a href=""><div class='navItem'>Mon profil</div></a>
+                <a href=" {{ path('app_seance') }}"><div class='navItem'>Séance</div></a>
+           
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href=" {{ path('entraineur') }}"><div class='navItem'>Entraineur</div></a>
+            {% endif %}
+            </div>
         {% else %}
             <a href=" {{ path('app_login') }}">Se connecter</a>
             <a href=" {{ path('app_register') }}">S'enregister</a>
@@ -27,3 +31,6 @@
         {% endblock %}
     </body>
 </html>
+{% block javascript %}
+            <script src="js/script.js"></script>
+        {% endblock %}
