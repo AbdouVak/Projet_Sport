@@ -26,7 +26,7 @@ class SeanceController extends AbstractController
         $entityManager->persist($seance);
         $entityManager->flush();
 
-        return $this->render('home/index.html.twig');    
+        return $this->redirectToRoute('app_seance');    
     }
 
     #[Route('/seance/showAdd/', name: 'show_add_seance')]
