@@ -95,33 +95,44 @@ a{
     text-align: center;
 }
 
-.formAddSeance{
-    display: flex;
-    flex-direction: column;
-    margin-top: 50px;
+
+/* Vue topic*/
+
+#forum{
+    margin-top: 80px;
+    margin-left: 30%;
+    margin-right: 30%;
 }
 
-.formAddSeance form{
-    display: flex;
-    flex-direction: column;
-}
-
-.formAddSeance select,input{
-    width: 100px;
-}
-
-#formAddTopic{
+.topic{
+    margin: 10px;
+    
     background-color: #AAFF64;
-    width: 30%;
+    padding: 10px;
+
 }
 
-#formAddTopic form{
+.topicInfos{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 5px;
 }
 
-#formAddTopic textarea{
-    width: 200px;
-    height: 50px;
-    margin-bottom: 20px;
+.topicInfo{
+    background-color: #1E1E1E;
+    width: fit-content;
+    color: aliceblue;
+    padding: 5px;
+}
+
+.topicContent{
+    background-color: aliceblue;
+    height: 80px;
+    padding: 5px;
+}
+
+#addTopic{
+    margin-top: 30px;
+    
+    background-color: #AAFF64;
 }
