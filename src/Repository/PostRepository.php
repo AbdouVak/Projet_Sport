@@ -21,6 +21,16 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
+    public function findByTopicId(int $topicId): array
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.topic = :topicId')
+            ->setParameter('topicId', $topicId)
+            ->orderBy('p.dateCreation', 'ASC') // Remplacez 'ASC' par 'DESC' si vous souhaitez trier par ordre décroissant
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Post[] Returns an array of Post objects
 //     */
