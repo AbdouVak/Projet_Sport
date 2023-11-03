@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TopicController!{% endblock %}
+
+{% block body %}
+    <h1>{{topic.titre}}</h1>
+    <div class='topic'>
+        <div class='topicHeader'>
+            <div class='topicInfo'>{{topic.user.pseudo}}</div>
+            <div class='topicInfo'>{{topic.dateCreation|date('Y-m-d H:i:s')}}</div>
+        </div>
+        <div class='content'>
+            {{topic.contenue}}
+        </div>
+    </div>
+
+    {% for post in posts %}
+    <div class='topic'>
+        <div class='topicHeader'>
+            <div class='topicInfo'>{{post.user.pseudo}}</div>
+            <div class='topicInfo'>{{post.dateCreation|date('Y-m-d H:i:s')}}</div>
+        </div>
+        <div class='content'>
+            {{post.contenue}}
+        </div>
+    </div>
+    {% endfor %}
+
+    <div id='formAddTopic'>
+        <form action="{{ path('add_post',{'topic_id': topic.id}) }}) }}" method="post" >
+            <label for="contenue">Contenue :</label>
+            <textarea type="textarea" name="contenue"></textarea>
+            <input type="submit" value="ajouter post"></i>
+        </form>
+    </div>
+{% endblock %}
