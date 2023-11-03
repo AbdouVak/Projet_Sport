@@ -18,11 +18,6 @@ class CategorieTopic
     #[ORM\Column(length: 50)]
     private ?string $categorie = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image = null;
-
-    #[ORM\OneToMany(mappedBy: 'categorieTopic', targetEntity: Topic::class)]
-    private Collection $topics;
 
     public function __construct()
     {
@@ -42,18 +37,6 @@ class CategorieTopic
     public function setCategorie(string $categorie): static
     {
         $this->categorie = $categorie;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(?string $image): static
-    {
-        $this->image = $image;
 
         return $this;
     }
