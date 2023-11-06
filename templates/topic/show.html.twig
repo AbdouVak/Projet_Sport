@@ -25,12 +25,14 @@
         </div>
     </div>
     {% endfor %}
-
-    <div id='formAddTopic'>
-        <form action="{{ path('add_post',{'topic_id': topic.id}) }}) }}" method="post" >
-            <label for="contenue">Contenue :</label>
-            <textarea type="textarea" name="contenue"></textarea>
-            <input type="submit" value="ajouter post"></i>
-        </form>
-    </div>
+    
+    {% if topic.verrouiller == false %}
+        <div id='formAddTopic'>
+            <form action="{{ path('add_post',{'topic_id': topic.id}) }}) }}" method="post" >
+                <label for="contenue">Contenue :</label>
+                <textarea type="textarea" name="contenue"></textarea>
+                <input type="submit" value="ajouter post"></i>
+            </form>
+        </div>
+    {% endif %}
 {% endblock %}
