@@ -18,7 +18,7 @@ class Seance
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
-    #[ORM\OneToMany(mappedBy: 'seance', targetEntity: SeanceExercice::class)]
+    #[ORM\OneToMany(mappedBy: 'seance', targetEntity: SeanceExercice::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $seanceExercices;
 
     #[ORM\ManyToOne(inversedBy: 'seances')]

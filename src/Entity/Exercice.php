@@ -21,7 +21,7 @@ class Exercice
     #[ORM\ManyToMany(targetEntity: CategorieMuscle::class, inversedBy: 'exercices')]
     private Collection $CategorieMuscles;
 
-    #[ORM\OneToMany(mappedBy: 'exercice', targetEntity: SeanceExercice::class)]
+    #[ORM\OneToMany(mappedBy: 'exercice', targetEntity: SeanceExercice::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $seanceExercices;
 
 
