@@ -4,6 +4,7 @@
 {% block body %}
     <div id='showSeance'> 
         <h1>{{seance.nom}}</h1>
+        <a href="{{ path('delete_seance',{'id': seance.id}) }}"><h1>x</h1></a>
 
         <table>
             <thead>
@@ -13,6 +14,7 @@
                     <th>Repetition</th>
                     <th>Poid</th>
                     <th>Edit</th>
+                    <th>Supprimer</th>
                 </tr>
             </thead>
 
@@ -36,6 +38,7 @@
                         <td><input type="number" value="{{ exerciceSeance.getRepetition}}" name="repetition"></td>
                         <td><input type="number" value="{{ exerciceSeance.getPoid}}" name="poid"></td>
                         <td><input type="submit" value="editer exercice"></i></td>
+                        <td><a href="{{ path('delete_SeanceExercice',{'id': exerciceSeance.id}) }}">x</a></td>
                     </form>
                 </tr>
             </tbody>
