@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Seance;
-use App\Entity\Exercice;
 use App\Entity\SeanceExercice;
-use App\Form\SeanceExerciceType;
 use App\Repository\ExerciceRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\SeanceExerciceRepository;
@@ -18,6 +16,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class SeanceExerciceController extends AbstractController
 {
+    #[Route('/seance/exercice/delete/{id}', name: 'delete_SeanceExercice')]
+    #[ParamConverter('seanceExercice', options: ['id' => 'id'])]
+    public function deleteSeanceExercice(SeanceExercice $seanceExercice,ManagerRegistry $doctrine): Response{
+
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($seanceExercice);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_seance');      
+    }
 
     #[Route('/seance/exercice/add/{seance_id}', name: 'add_exerciceToSeance')]
     #[Route('/seance/exercice/edit/{seance_id}', name: 'edit_exerciceToSeance')]
