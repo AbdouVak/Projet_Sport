@@ -4,6 +4,15 @@
 
 {% block body %}
     <div id='forum'>
+
+        <form action="{{ path('app_topic') }}" method="post" id="topic-form">
+            <select name="categorieTopic" id="categorie-select">
+                {% for categorieTopic in categorieTopics %}
+                    <option value="{{categorieTopic.id}}">{{categorieTopic.categorie}}</option>
+                {% endfor %}
+            </select>
+        </form>
+
         {% for topic in topics %}
             <div class='topic'>
                 <div class='topicInfos'>

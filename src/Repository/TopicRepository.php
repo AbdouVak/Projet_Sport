@@ -21,6 +21,16 @@ class TopicRepository extends ServiceEntityRepository
         parent::__construct($registry, Topic::class);
     }
 
+    public function findTopicsByCategory($categoryId)
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.categorieTopic = :categoryId')
+            ->setParameter('categoryId', $categoryId)
+            ->orderBy('t.dateCreation', 'ASC') // Remplacez 'ASC' par 'DESC' si vous voulez l'ordre inverse
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Topic[] Returns an array of Topic objects
 //     */

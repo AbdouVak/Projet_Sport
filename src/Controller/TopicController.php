@@ -55,8 +55,16 @@ class TopicController extends AbstractController
     #[Route('/topic', name: 'app_topic')]
     public function index(CategorieTopicRepository $categorieTopicRepository,TopicRepository $topicRepository): Response
     {
+        $topic = null;
+        $message;
+        if (!empty($_POST)){
+            $topics = $topicRepository->findTopicsByCategory($_POST['categorieTopic']);
+        }else{
+            
+            $topics = $topicRepository->findAll();
+        }
         $categorieTopics = $categorieTopicRepository->findAll();
-        $topics = $topicRepository->findAll();
+
         return $this->render('topic/index.html.twig', [
             'categorieTopics' => $categorieTopics,
             'topics' => $topics

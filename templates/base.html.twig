@@ -16,7 +16,7 @@
                 <a href=" {{ path('app_logout') }}"><div class='navItem'>Se déconnecter</div></a>
                 <a href=""><div class='navItem'>Mon profil</div></a>
                 <a href=" {{ path('app_seance') }}"><div class='navItem'>Séance</div></a>
-           
+                <a href=" {{ path('app_topic') }}"><div class='navItem'>Forum</div></a>
             {% if is_granted('ROLE_ADMIN') %}
                 <a href=" {{ path('entraineur') }}"><div class='navItem'>Entraineur</div></a>
             {% endif %}
@@ -30,7 +30,9 @@
         {% block body %}
         {% endblock %}
     </body>
+    
+    {% block javascript %}
+        <script src="/js/script.js"></script>
+    {% endblock %}
+
 </html>
-{% block javascript %}
-            <script src="js/script.js"></script>
-        {% endblock %}

@@ -16,23 +16,26 @@
                 </tr>
             </thead>
 
-            {% for exercice in seance.getSeanceExercices %}
+            {% for exerciceSeance in seance.getSeanceExercices %}
             </tbody>
                 <tr>
-                    <form>
-
-                    <td>
-                        <select name="exercices" id="exercice-select">
+                    <form action="{{ path('edit_exerciceToSeance' ,{'seance_id': seance.id}) }}" method="post" > 
+                        <td>
+                            <select name="exercices" id="exercice-select">
                             
+                            <option value="{{ exerciceSeance.exercice.id }}">{{ exerciceSeance.exercice.nom }}</option>
                             {% for exercice in exercices %}
+                            
+                                
                                 <option value="{{ exercice.id }}">{{ exercice.nom }}</option>
                             {% endfor %}
-                        </select>
-                    </td>
-                    <a href="{{ path('show_exercice',{'id':  exercice.getExercice.getId}) }}">{{exercice.getExercice}}</a>
-                    <td><input type="number" value="{{ exercice.getSerie}}"></td>
-                    <td><input type="number" value="{{ exercice.getRepetition}}"></td>
-                    <td><input type="number" value="{{ exercice.getPoid}}"></td>
+                            </select>
+                        </td>
+
+                        <td><input type="number" value="{{ exerciceSeance.getSerie}}" name="serie"></td>
+                        <td><input type="number" value="{{ exerciceSeance.getRepetition}}" name="repetition"></td>
+                        <td><input type="number" value="{{ exerciceSeance.getPoid}}" name="poid"></td>
+                        <td><input type="submit" value="editer exercice"></i></td>
                     </form>
                 </tr>
             </tbody>
@@ -41,7 +44,7 @@
 
 
         <div class='formAddSeance'>
-            <form action="{{ path('add_exericeToSeance' ,{'seance_id': seance.id}) }}" method="post" > 
+            <form action="{{ path('add_exerciceToSeance' ,{'seance_id': seance.id}) }}" method="post" > 
                 <label for="exerice-select">Choisie un exerice :</label>
                 <select name="exercices" id="exercice-select">
                     {% for exercice in exercices %}

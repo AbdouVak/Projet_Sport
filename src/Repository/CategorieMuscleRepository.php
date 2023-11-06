@@ -21,6 +21,9 @@ class CategorieMuscleRepository extends ServiceEntityRepository
         parent::__construct($registry, CategorieMuscle::class);
     }
 
+    public function topicByCategorie(){
+
+    }
 //    /**
 //     * @return CategorieMuscle[] Returns an array of CategorieMuscle objects
 //     */

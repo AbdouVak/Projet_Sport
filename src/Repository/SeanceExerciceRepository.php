@@ -21,6 +21,7 @@ class SeanceExerciceRepository extends ServiceEntityRepository
         parent::__construct($registry, SeanceExercice::class);
     }
 
+
 //    /**
 //     * @return SeanceExercice[] Returns an array of SeanceExercice objects
 //     */

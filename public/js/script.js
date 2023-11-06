@@ -1,4 +1,6 @@
-// Get the modal
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Get the modal
 var modal = document.getElementById("myModal");
 
 // Get the button that opens the modal
@@ -23,3 +25,12 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+  // Votre code JavaScript existant va ici
+  const selectElement = document.getElementById("categorie-select");
+  const formElement = document.getElementById("topic-form");
+
+  selectElement.addEventListener("change", function () {
+      formElement.submit();
+  });
+
+});
