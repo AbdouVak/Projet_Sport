@@ -13,9 +13,22 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class SeanceController extends AbstractController
 {
+
+    #[Route('/seance/delete/{id}', name: 'delete_seance')]
+    #[ParamConverter('seance', options: ['id' => 'id'])]
+    public function delete(Seance $seance,SeanceRepository $SeanceRepository,ManagerRegistry $doctrine): Response{
+
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($seance);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_seance');    
+    }
+
     #[Route('/seance/add', name: 'add_seance')]
     public function add(ManagerRegistry $doctrine): Response{
         $seance = new Seance();
