@@ -16,9 +16,13 @@
         {% for topic in topics %}
             <div class='topic'>
                 <div class='topicInfos'>
+                    <div class='topicInfo'>{{topic.user.pseudo}}</div>
                     <div class='topicInfo'>{{topic.dateCreation|date('Y-m-d')}}</div>
                     <div class='topicInfo'>#{{topic.categorieTopic.categorie}}</div>
                     <div class='topicInfo'><a href="{{ path('show_topic' ,{'id': topic.id}) }}">{{topic.titre}}</a></div>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('veroullier_topic',{'id': topic.id}) }}" ><div class='topicInfo'>ver</div></a>
+                    {% endif %}
                 </div>
                 <div class='topicContent'>
                     {{topic.contenue}}
