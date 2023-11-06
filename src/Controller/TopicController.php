@@ -13,9 +13,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class TopicController extends AbstractController
 {
+
+    #[Route('/topic/verrouille/{id}', name: 'veroullier_topic')]
+    #[ParamConverter('topic', options: ['id' => 'id'])]
+    public function VerrouillerTopic(ManagerRegistry $doctrine,Topic $topic = null): Response
+    {
+        $topic->setVerrouiller(true);
+
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($topic);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_topic');
+    }
+
     #[Route('/topic/add', name: 'add_topic')]
     public function add(ManagerRegistry $doctrine, Topic $topic = null, Request $request,CategorieTopicRepository $categorieTopicRepository ): Response
     {
@@ -56,7 +70,6 @@ class TopicController extends AbstractController
     public function index(CategorieTopicRepository $categorieTopicRepository,TopicRepository $topicRepository): Response
     {
         $topic = null;
-        $message;
         if (!empty($_POST)){
             $topics = $topicRepository->findTopicsByCategory($_POST['categorieTopic']);
         }else{
