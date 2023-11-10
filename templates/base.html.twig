@@ -13,18 +13,23 @@
     <body>
         {% if app.user %}
             <div id='navBar'> 
-                <a href=" {{ path('app_logout') }}"><div class='navItem'>Se déconnecter</div></a>
-                <a href=""><div class='navItem'>Mon profil</div></a>
-                <a href=" {{ path('app_seance') }}"><div class='navItem'>Séance</div></a>
-                <a href=" {{ path('app_topic') }}"><div class='navItem'>Forum</div></a>
-            {% if is_granted('ROLE_ADMIN') %}
-                <a href=" {{ path('entraineur') }}"><div class='navItem'>Entraineur</div></a>
-            {% endif %}
+                <div class="navFonctionaliter">
+                    <input type="button" onclick="location.href=' {{ path('app_topic') }}';" value='Forum' />
+                    <input type="button"  onclick="location.href=' {{ path('app_seance') }}';" value='Séance' />
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <input type="button"onclick="location.href=' {{ path('entraineur') }}';" value='Entraineur' />
+                    {% endif %}
+                </div>
+
+                <div class="navUtilisateur">
+                    <input type="button" onclick="location.href=' {{ path('entraineur') }}';" value='Mon profil' />
+                    <input type="button"  onclick="location.href=' {{ path('app_logout') }}';" value='Se déconnecter' />
+                </div>
             </div>
         {% else %}
-            <a href=" {{ path('app_login') }}">Se connecter</a>
-            <a href=" {{ path('app_register') }}">S'enregister</a>
-            <a href=" {{ path('app_home') }}">Accueil</a>
+                <input type="button"  onclick="location.href='{{ path('app_login') }}';" value='Se connecter' />
+                <input type="button"  onclick="location.href='{{ path('app_register') }}';" value="S'enregister" />
+                <input type="button"  onclick="location.href='{{ path('app_home') }}';" value="Accueil" />
         {% endif %}
         
         {% block body %}

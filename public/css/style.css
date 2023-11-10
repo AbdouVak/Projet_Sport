@@ -3,13 +3,11 @@
     padding : 0;
     vertical-align: top;
     font-family: "Noto Serif Japanese";
-     
 }
 
 body{
-    background-color: #2C2B2A;
+    background-color: #1F1F1F;
     justify-content: center;
-    background-image:url("https://images.pexels.com/photos/2261477/pexels-photo-2261477.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -29,7 +27,7 @@ a{
     padding: 20px;
     width: 20%;
 }
-/* vue seance*/ 
+/* -------------------------------- vue seance -------------------------------- */ 
 #seanceContainer{
     width: 40%;
     margin-left: 30%;
@@ -66,11 +64,11 @@ a{
 
 .cardContainer a{
     text-decoration: none;
-    color: #2C2B2A;
+    color: #1F1F1F;
 }
 
 
-/*show seance*/
+/* -------------------------------- show seance -------------------------------- */
 #showSeance{
     width: 50%;
     background-color: #BF1B1B;
@@ -91,13 +89,13 @@ a{
 }
 
 #showSeance a{
-    color: #2C2B2A;
+    color: #1F1F1F;
 }
 
 #showSeance td{
     text-align: center;
 }
-/* add seance */
+/* -------------------------------- add seance -------------------------------- */
 .formAddSeance{
     display: flex;
     flex-direction: column;
@@ -118,8 +116,7 @@ a{
     width: 30%;
 }
 
-/*add topic*/
-
+/* -------------------------------- add topic -------------------------------- */
 #formAddTopic form{
     display: flex;
     flex-direction: column;
@@ -131,27 +128,51 @@ a{
     margin-bottom: 20px;
 }
 
-
-/* Nav bar*/
+/* -------------------------------- Nav bar --------------------------------*/
 #navBar{
     display: flex;
-    flex-direction: row;
     gap: 10px;
     padding: 10px;
+    background-color: #EA5823;
+    
+    gap: 0px 20%;
 }
 
-.navItem {
-    height: 50px;
-    text-align: center;
+.navFonctionaliter{
+    display: flex;
+    gap: 5px;
+    margin-left: 44%;
+}
+
+.navUtilisateur{
+    display: flex;
+    gap: 5px;
+    flex-direction: row;
+}
+
+#navBar input{
+    border: 0;
+    outline: 0;
+    padding: 5px;
     border-radius: 5px;
+    width: auto;
+    background-color: #1F1F1F;
+    color: antiquewhite;
     font-size: 150%;
-    color: #FFFCEF;
-    text-decoration: none;
+    transition:
+    width 0.3s,
+    height 0.3s,
+    background-color 0.3s,
+    transform 0.3s;
 }
 
+#navBar input:hover{
+    background-color: antiquewhite;
+    color: #EA5823;
+    transition-duration: 0.3s;
+}
 
-
-/* The Modal (background) */
+/* -------------------------------- The Modal (background) -------------------------------- */
 .modal {
     display: none;
     position: fixed;
@@ -163,10 +184,10 @@ a{
     overflow: auto;
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
-  }
-  
-  /* Modal Content/Box */
-  .modal-content {
+}
+
+/*  Modal Content/Box  */
+.modal-content {
     background-color: #BF1B1B;
     margin: 15% auto;
     padding: 20px;
@@ -175,41 +196,42 @@ a{
     width: 200px;
     height: 200px;
     display: flex;
-  }
-  
-  /* The Close Button */
-  .close {
+}
+
+/*  The Close Button */
+.close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
     width: 10px;
     height: 10px;
-  }
-  
-  .close:hover,
-  .close:focus {
+}
+
+.close:hover,
+.close:focus {
     width: 10px;
     height: 10px;
     color: black;
     text-decoration: none;
     cursor: pointer;
-  }
+}
 
-  /* Vue topic*/
-
+/* -------------------------------- Vue forum -------------------------------- */
 #forum{
     margin-top: 80px;
-    margin-left: 30%;
-    margin-right: 30%;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding: 20px;
+    background-color: #EA5823;
+    border-radius: 5px;
 }
 
 .topic{
     margin: 10px;
-    
-    background-color: #7706a3;
+    background-color: #1f1f1f;
     padding: 10px;
-
+    border-radius: 5px;
 }
 
 .topicInfos{
@@ -219,7 +241,7 @@ a{
 }
 
 .topicInfo{
-    background-color: #1E1E1E;
+    background-color: #1f1f1f;
     width: fit-content;
     color: aliceblue;
     padding: 5px;
@@ -229,10 +251,33 @@ a{
     background-color: aliceblue;
     height: 80px;
     padding: 5px;
+    border-radius: 5px;
 }
 
 #addTopic{
-    margin-top: 30px;
-    
-    background-color: #7706a3;
+    margin-top: 40px;
+    margin-left: 9px;
+    margin-right: 9px;
+    border-radius: 5px;
+    background-color: #1f1f1f;
+    color: aliceblue;
+    display: flex;
+    flex-direction: column;
+}
+
+#addTopic form{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#addTopic textarea{
+    width: 300px;
+    height: 60px;
+}
+
+#addTopic select{
+    width: 80px;
+    height: 25px;
 }
