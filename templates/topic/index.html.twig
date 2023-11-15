@@ -37,9 +37,9 @@
                 <label for="contenue">Contenue :</label>
                 <textarea type="textarea" name="contenue"></textarea>
                 <select name="categorieTopic" id="categorie-select">
-                    {% for categorieTopic in categorieTopics %}
-                        <option value="{{categorieTopic.id}}">{{categorieTopic.categorie}}</option>
-                    {% endfor %}
+                {% for categorieTopic in categorieTopics %}
+                    <option value="{{categorieTopic.id}}">{{categorieTopic.categorie}}</option>
+                {% endfor %}
                 </select>
                 <input type="submit" value="ajouter topic"></i>
             </form>

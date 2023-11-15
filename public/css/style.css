@@ -112,9 +112,14 @@ a{
 }
 
 #formAddTopic{
-    background-color: #BF1B1B;
+    background-color: #1F1F1F;
+    padding: 5px;
+    margin-left: 35%;
+    margin-right: 35%;
     width: 30%;
+    border-radius: 5px;
 }
+
 
 /* -------------------------------- add topic -------------------------------- */
 #formAddTopic form{
@@ -280,4 +285,38 @@ a{
 #addTopic select{
     width: 80px;
     height: 25px;
+}
+
+/*topic*/
+
+#topicContainer{
+    margin-top: 80px;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding: 20px;
+    background-color: #EA5823;
+    border-radius: 5px;
+}
+
+.seanceFav{
+    font-size: larger;
+    display: flex;
+    flex-direction: row;
+    width: 150px;
+    height:40px;
+    background-color: #BF1B1B;
+    color: antiquewhite;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.seanceFav i {
+    
+    font-size: 40px;
+}
+
+.cardContainer a{
+    text-decoration: none;
+    color: #EA5823;
 }

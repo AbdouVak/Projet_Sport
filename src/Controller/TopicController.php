@@ -59,10 +59,11 @@ class TopicController extends AbstractController
     public function show(Topic $topic,PostRepository $postRepository): Response
     {
         $posts = $postRepository->findByTopicId($topic->getId());
-        
         return $this->render('topic/show.html.twig', [
             'topic' => $topic,
-            'posts' => $posts
+            'posts' => $posts,
+            'seancesPartager'=> $this->getUser()->getSeances(),
+            'seanceFavUsers'=> $this->getUser()->getSeanceFavoris()
         ]);
     }
 
@@ -73,7 +74,6 @@ class TopicController extends AbstractController
         if (!empty($_POST)){
             $topics = $topicRepository->findTopicsByCategory($_POST['categorieTopic']);
         }else{
-            
             $topics = $topicRepository->findAll();
         }
         $categorieTopics = $categorieTopicRepository->findAll();
