@@ -23,6 +23,13 @@
 
         {# ces lignes de code créerons des card des séances #}
         <div class='cardContainer'>
+            {# ces lignes de code créerons une card qui permet d'ajouter une séance#}
+            <a id="ajouterSeance">
+                <div class='cardSeance'>
+                    <h3>Ajouter Seance</h3>
+                </div>
+            </a>
+
             {% for seance in seances %}
             <a href="{{ path('show_seance',{'id': seance.id}) }}">
                 <div class='cardSeance'>
@@ -30,13 +37,14 @@
                 </div>
             </a> 
             {% endfor %} 
-        
-        {# ces lignes de code créerons une card qui permet d'ajouter une séance#}
-            <a id="ajouterSeance">
+
+            {% for seancesFav in app.user.SeanceFavoris %}
+            <a href="{{ path('show_seance',{'id': seancesFav.id}) }}">
                 <div class='cardSeance'>
-                    <h3>Ajouter Seance</h3>
+                    <h3>{{seancesFav.nom}}</h3>
                 </div>
-            </a>
+            </a> 
+            {% endfor %} 
         </div>
     </div>
 
