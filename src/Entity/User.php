@@ -46,11 +46,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Seance::class)]
     private Collection $seances;
 
+    #[ORM\ManyToMany(targetEntity: Seance::class, inversedBy: 'users')]
+    private Collection $SeanceFavoris;
+
     public function __construct()
     {
         $this->topics = new ArrayCollection();
         $this->posts = new ArrayCollection();
         $this->seances = new ArrayCollection();
+        $this->SeanceFavoris = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -235,5 +239,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Seance>
+     */
+    public function getSeanceFavoris(): Collection
+    {
+        return $this->SeanceFavoris;
+    }
+
+    public function addSeanceFavori(Seance $seanceFavori): static
+    {
+        if (!$this->SeanceFavoris->contains($seanceFavori)) {
+            $this->SeanceFavoris->add($seanceFavori);
+        }
+
+        return $this;
+    }
+
+    public function removeSeanceFavori(Seance $seanceFavori): static
+    {
+        $this->SeanceFavoris->removeElement($seanceFavori);
+
+        return $this;
+    }
+
+    public function hasSeance(Seance $seance): bool
+    {
+        return $this->seances->contains($seance);
     }
 }
