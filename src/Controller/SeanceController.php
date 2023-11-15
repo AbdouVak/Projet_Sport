@@ -3,9 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Topic;
 use App\Entity\Seance;
-use App\Form\SeanceType;
-use App\Repository\UserRepository;
 use App\Repository\SeanceRepository;
 use App\Repository\ExerciceRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -17,10 +16,35 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class SeanceController extends AbstractController
 {
+    #[Route('/seance/remove_seanceFavoris/{seance_id}', name: 'remove_seanceFavoris')]
+    #[ParamConverter('seance', options: ['id' => 'seance_id'])]
+    public function removeFavSeance(ManagerRegistry $doctrine, Seance $seance): Response{
+
+        $user = $this->getUser()->removeSeanceFavori($seance);
+
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_seance');    
+    }
+
+    #[Route('/seance/add_seanceFavoris/{seance_id}', name: 'add_seanceFavoris')]
+    #[ParamConverter('seance', options: ['id' => 'seance_id'])]
+    public function addFavSeance(ManagerRegistry $doctrine, Seance $seance): Response{
+
+        $user = $this->getUser()->addSeanceFavori($seance);
+
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_seance');    
+    }
 
     #[Route('/seance/delete/{id}', name: 'delete_seance')]
     #[ParamConverter('seance', options: ['id' => 'id'])]
-    public function delete(Seance $seance,SeanceRepository $SeanceRepository,ManagerRegistry $doctrine): Response{
+    public function delete(Seance $seance,ManagerRegistry $doctrine): Response{
 
         $entityManager = $doctrine->getManager();
         $entityManager->remove($seance);
