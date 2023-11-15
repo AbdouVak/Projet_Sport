@@ -5,6 +5,7 @@ namespace App\Controller;
 use DateTime;
 use App\Entity\Post;
 use App\Entity\Topic;
+use App\Repository\SeanceRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,22 +17,22 @@ class PostController extends AbstractController
 {
     #[Route('/post/add/{topic_id}', name: 'add_post')]
     #[ParamConverter('topic', options: ['id' => 'topic_id'])]
-    public function add(ManagerRegistry $doctrine, Post $post = null, Topic $topic = null, Request $request): Response
+    public function add(ManagerRegistry $doctrine, Post $post = null, Topic $topic = null, SeanceRepository $seanceRepository): Response
     {
         
-        if(!$post){
 
-            $post = new post();
-
-            $post->setUser($this->getUser());
-            $post->setContenue($_POST['contenue']);
-            $post->setDateCreation(new DateTime());
-            $post->setTopic($topic);
-            
-            $entityManager = $doctrine->getManager();
-            $entityManager->persist($post);
-            $entityManager->flush();
+        $post = new post();
+        $post->setUser($this->getUser());
+        $post->setContenue($_POST['contenue']);
+        $post->setDateCreation(new DateTime());
+        $post->setTopic($topic);
+        if(isset($_POST['seance'])){
+            $seanceFavoris = $seanceRepository->find($_POST['seance']);
+            $post->addSeanceFavorite($seanceFavoris);
         }
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($post);
+        $entityManager->flush();
 
         return $this->redirectToRoute('show_topic',['id'=>$topic->getId()]);      
     }
