@@ -50,7 +50,7 @@ a{
 }
 
 .cardSeance{
-    background-color: #BF1B1B;
+    background-color: #FE4D4D;
     color: #FFFCEF;
     width: 200px;
     height: 200px;
@@ -70,47 +70,42 @@ a{
 
 /* -------------------------------- show seance -------------------------------- */
 #showSeance{
-    width: 50%;
-    background-color: #BF1B1B;
-    box-shadow: #BF1B1B 0px 4px 12px;
-    display: flex;
-    border-radius: 10px;
-    justify-content: center;
-    flex-direction: column;
-    margin-top: 50px;
-    margin-left: 25%;
-    margin-right: 25%;
-}
-
-#showSeance h1{
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-#showSeance a{
+    background-color: #FE4D4D;
     color: #1F1F1F;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 50px;
+    padding: 10px;
+    border-radius: 5px;
 }
 
-#showSeance td{
-    text-align: center;
+#seanceTitre{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
+
+#showSeance table{
+    background-color: antiquewhite;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+#showSeance th{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 /* -------------------------------- add seance -------------------------------- */
 .formAddSeance{
     display: flex;
     flex-direction: column;
-    margin-top: 50px;
 }
 
-.formAddSeance form{
-    display: flex;
-    flex-direction: column;
-}
-
-.formAddSeance select,input{
-    width: 100px;
-}
-
+/* -------------------------------- add topic -------------------------------- */
 #formAddTopic{
     background-color: #1F1F1F;
     padding: 5px;
@@ -120,8 +115,6 @@ a{
     border-radius: 5px;
 }
 
-
-/* -------------------------------- add topic -------------------------------- */
 #formAddTopic form{
     display: flex;
     flex-direction: column;
@@ -138,7 +131,7 @@ a{
     display: flex;
     gap: 10px;
     padding: 10px;
-    background-color: #EA5823;
+    background-color: #F5DD90;
     
     gap: 0px 20%;
 }
@@ -173,7 +166,7 @@ a{
 
 #navBar input:hover{
     background-color: antiquewhite;
-    color: #EA5823;
+    color: #1F1F1F;
     transition-duration: 0.3s;
 }
 
@@ -228,7 +221,7 @@ a{
     margin-left: 25%;
     margin-right: 25%;
     padding: 20px;
-    background-color: #EA5823;
+    background-color: #F5DD90;
     border-radius: 5px;
 }
 
@@ -286,7 +279,6 @@ a{
     width: 80px;
     height: 25px;
 }
-
 /*topic*/
 
 #topicContainer{
@@ -294,7 +286,7 @@ a{
     margin-left: 25%;
     margin-right: 25%;
     padding: 20px;
-    background-color: #EA5823;
+    background-color: #F5DD90;
     border-radius: 5px;
 }
 
@@ -318,5 +310,5 @@ a{
 
 .cardContainer a{
     text-decoration: none;
-    color: #EA5823;
+    color: #F5DD90;
 }

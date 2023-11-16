@@ -3,10 +3,12 @@
 
 {% block body %}
     <div id='showSeance'> 
-        <h1>{{seance.nom}}</h1>
-        {% if app.user.id == seance.user.id %}
-            <a href="{{ path('delete_seance',{'id': seance.id}) }}"><h1>x</h1></a>
-        {% endif %}
+        <div id='seanceTitre'>
+            <h1>{{seance.nom}}</h1>
+            {% if app.user.id == seance.user.id %}
+                <a href="{{ path('delete_seance',{'id': seance.id}) }}"><h1><i class="fa-solid fa-trash"></i></h1></a>
+            {% endif %}
+        </div>
 
         <table>
             <thead>
@@ -30,13 +32,13 @@
                             <td>
                                 <select name="exercices" id="exercice-select">
                                 
+                                <option value="{{null}}" selected disabled>------</option>
                                 <option value="{{ exerciceSeance.exercice.id }}">{{ exerciceSeance.exercice.nom }}</option>
                                 {% for exercice in exercices %}
                                     <option value="{{ exercice.id }}">{{ exercice.nom }}</option>
                                 {% endfor %}
                                 </select>
                             </td>
-
                             <td><input type="number" value="{{ exerciceSeance.getSerie}}" name="serie"></td>
                             <td><input type="number" value="{{ exerciceSeance.getRepetition}}" name="repetition"></td>
                             <td><input type="number" value="{{ exerciceSeance.getPoid}}" name="poid"></td>
@@ -44,11 +46,9 @@
                             <td><a href="{{ path('delete_SeanceExercice',{'id': exerciceSeance.id}) }}">x</a></td>
                         </form>
                     </tr>
-                </tbody>
                 {% endfor %}
             {% else %}
                 {% for exerciceSeance in seance.getSeanceExercices %}
-                </tbody>
                     <tr>
                         <td>{{ exerciceSeance.exercice.nom }}</td>
                         <td>{{ exerciceSeance.getSerie}}</td>
