@@ -15,11 +15,11 @@
 
         {% for topic in topics %}
             <div class='topic'>
+                <h2><a href="{{ path('show_topic' ,{'id': topic.id}) }}">{{topic.titre}}</a></h2>
                 <div class='topicInfos'>
                     <div class='topicInfo'>{{topic.user.pseudo}}</div>
                     <div class='topicInfo'>{{topic.dateCreation|date('Y-m-d')}}</div>
                     <div class='topicInfo'>#{{topic.categorieTopic.categorie}}</div>
-                    <div class='topicInfo'><a href="{{ path('show_topic' ,{'id': topic.id}) }}">{{topic.titre}}</a></div>
                     {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('veroullier_topic',{'id': topic.id}) }}" ><div class='topicInfo'>ver</div></a>
                     {% endif %}
@@ -32,16 +32,17 @@
 
         <div id='addTopic'>
             <form action="{{ path('add_topic') }}" method="post" >
-                <label for="titre">Titre :</label>
-                <input type="string" name="titre">
-                <label for="contenue">Contenue :</label>
-                <textarea type="textarea" name="contenue"></textarea>
+                <label for="titre"></label>
+                <input type="string" name="titre" id='titre' placeholder='Titre'>
                 <select name="categorieTopic" id="categorie-select">
+                <option value="{{null}}" selected disabled>--Catégorie--</option>
                 {% for categorieTopic in categorieTopics %}
                     <option value="{{categorieTopic.id}}">{{categorieTopic.categorie}}</option>
                 {% endfor %}
                 </select>
-                <input type="submit" value="ajouter topic"></i>
+                <label for="contenue"></label>
+                <textarea type="textarea" id="contenue" name="contenue" placeholder='Contenue...'></textarea>
+                <input type="submit" id="envoyerTopic" value="Ajouter topic"></i>
             </form>
         </div>
     </div>
