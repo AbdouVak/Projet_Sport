@@ -62,4 +62,12 @@ document.addEventListener("DOMContentLoaded", function() {
     // Display the modal
     modal.style.display = "block";
   }
+
+  const card = document.getElementById("cardSeance")
+
+  card.addEventListener("click",flipcard);
+
+  function flipcard() {
+    card.classList.toggle("flipCard");
+  }
 });
