@@ -25,7 +25,7 @@
                     {% endif %}
                 </div>
                 <div class='topicContent'>
-                    {{topic.contenue}}
+                    <p>{{topic.contenue}}</p>
                 </div>
             </div>
         {% endfor %}
@@ -33,13 +33,15 @@
         <div id='addTopic'>
             <form action="{{ path('add_topic') }}" method="post" >
                 <label for="titre"></label>
-                <input type="string" name="titre" id='titre' placeholder='Titre'>
-                <select name="categorieTopic" id="categorie-select">
-                <option value="{{null}}" selected disabled>--Catégorie--</option>
-                {% for categorieTopic in categorieTopics %}
-                    <option value="{{categorieTopic.id}}">{{categorieTopic.categorie}}</option>
-                {% endfor %}
-                </select>
+                <div id='titreCategorie'>
+                    <input type="string" name="titre" id='titre' placeholder='Titre'>
+                    <select name="categorieTopic" id="categorie-select">
+                    <option value="{{null}}" selected disabled>--Catégorie--</option>
+                    {% for categorieTopic in categorieTopics %}
+                        <option value="{{categorieTopic.id}}">{{categorieTopic.categorie}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
                 <label for="contenue"></label>
                 <textarea type="textarea" id="contenue" name="contenue" placeholder='Contenue...'></textarea>
                 <input type="submit" id="envoyerTopic" value="Ajouter topic"></i>

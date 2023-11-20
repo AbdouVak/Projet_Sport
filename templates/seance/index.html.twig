@@ -29,12 +29,10 @@
             </a>
 
             {% for seance in seances %}
-            <a href="{{ path('show_seance',{'id': seance.id}) }}">
-                <div class='cardSeance'>
-                    <h3>{{seance.nom}}</h3>
-                </div>
-            </a> 
-            {% endfor %} 
+            <div class='cardSeance'>
+                
+            </div>
+            {% endfor %}
 
             {% for seancesFav in app.user.SeanceFavoris %}
             <a href="{{ path('show_seance',{'id': seancesFav.id}) }}">
