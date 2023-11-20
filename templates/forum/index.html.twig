@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ForumController!{% endblock %}
+
+{% block body %}
+<div id='forum'>
+
+    {{ form_start(formSearchTopic) }}
+        {{ form_row(formSearchTopic.search) }}
+        {{ form_row(formSearchTopic.submit) }}
+    {{ form_end(formSearchTopic) }}
+
+    {#  
+    <form action="{{ path('app_topic') }}" method="post" id="topic-form">
+        <select name="categorieTopic" id="categorie-select">
+            {% for categorieTopic in categorieTopics %}
+                <option value="{{categorieTopic.id}}">{{categorieTopic.categorie}}</option>
+            {% endfor %}
+        </select>
+    </form>
+    #}
+
+    {% for topic in topics %}
+        <div class='topic'>
+            <h2><a href="{{ path('show_topic' ,{'id': topic.id}) }}">{{topic.titre}}</a></h2>
+            <div class='topicInfos'>
+                <div class='topicInfo'>{{topic.user.pseudo}}</div>
+                <div class='topicInfo'>{{topic.dateCreation|date('Y-m-d')}}</div>
+                <div class='topicInfo'>#{{topic.categorieTopic.categorie}}</div>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('veroullier_topic',{'id': topic.id}) }}" ><div class='topicInfo'>ver</div></a>
+                {% endif %}
+            </div>
+            <div class='topicContent'>
+                <p>{{topic.contenue}}</p>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div id='addTopic'>
+        {{ form_start(formAddTopic) }}
+        {{ form_end(formAddTopic) }}
+    </div>
+
+</div>
+{% endblock %}
