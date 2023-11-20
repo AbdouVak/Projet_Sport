@@ -17,24 +17,20 @@
     </head>
     <body>
         {% if app.user %}
-            <div id='navBar'> 
-                <div class="navFonctionaliter">
-                    <input type="button" onclick="location.href=' {{ path('app_topic') }}';" value='Forum' />
-                    <input type="button"  onclick="location.href=' {{ path('app_seance') }}';" value='Séance' />
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <input type="button"onclick="location.href=' {{ path('entraineur') }}';" value='Entraineur' />
-                    {% endif %}
+            <div id='navBar'>
+                <div id='navFonctionnaliter'>
+                    <input type="button" onclick="location.href='{{ path('app_topic') }}';" value='Forum' />
+                    <input type="button" onclick="location.href='{{ path('app_seance') }}';" value='Séance' />
                 </div>
-
-                <div class="navUtilisateur">
-                    <input type="button" onclick="location.href=' {{ path('entraineur') }}';" value='Mon profil' />
-                    <input type="button"  onclick="location.href=' {{ path('app_logout') }}';" value='Se déconnecter' />
+                <div id='navUtilisateur'>
+                    <input type="button" onclick="location.href='{{ path('entraineur') }}';" value='Mon profil' />
+                    <input type="button" onclick="location.href='{{ path('app_logout') }}';" value='Se déconnecter' />
                 </div>
             </div>
         {% else %}
-                <input type="button"  onclick="location.href='{{ path('app_login') }}';" value='Se connecter' />
-                <input type="button"  onclick="location.href='{{ path('app_register') }}';" value="S'enregister" />
-                <input type="button"  onclick="location.href='{{ path('app_home') }}';" value="Accueil" />
+            <input type="button"  onclick="location.href='{{ path('app_login') }}';" value='Se connecter' />
+            <input type="button"  onclick="location.href='{{ path('app_register') }}';" value="S'enregister" />
+            <input type="button"  onclick="location.href='{{ path('app_home') }}';" value="Accueil" />
         {% endif %}
         
         {% block body %}

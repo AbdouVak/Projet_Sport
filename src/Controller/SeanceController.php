@@ -90,7 +90,8 @@ class SeanceController extends AbstractController
     {
         $seances = $seanceRepository->seanceUtilisateur( $this->getUser()->getId());
         return $this->render('seance/index.html.twig', [
-            "seances" => $seances
+            "seances" => $seances,
+            "User"=>$this->getUser()
         ]);
     }
 }

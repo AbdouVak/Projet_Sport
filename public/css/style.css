@@ -43,6 +43,7 @@ a{
 }
 
 .cardContainer{
+    width: 200%;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -99,11 +100,7 @@ a{
     justify-content: space-between;
 }
 
-/* -------------------------------- add seance -------------------------------- */
-.formAddSeance{
-    display: flex;
-    flex-direction: column;
-}
+
 
 /* -------------------------------- add topic -------------------------------- */
 #formAddTopic{
@@ -129,23 +126,17 @@ a{
 /* -------------------------------- Nav bar --------------------------------*/
 #navBar{
     display: flex;
-    gap: 10px;
+    justify-content: center;
     padding: 10px;
-    background-color: #F5DD90;
+    background-color: #FF681C;
+}
+
+#navFonctionnaliter{
     
-    gap: 0px 20%;
 }
 
-.navFonctionaliter{
-    display: flex;
-    gap: 5px;
-    margin-left: 44%;
-}
-
-.navUtilisateur{
-    display: flex;
-    gap: 5px;
-    flex-direction: row;
+#navUtilisateur{
+    
 }
 
 #navBar input{
@@ -170,7 +161,13 @@ a{
     transition-duration: 0.3s;
 }
 
-/* -------------------------------- The Modal (background) -------------------------------- */
+/* -------------------------------- add seance -------------------------------- */
+.formAddSeance{
+    display: flex;
+    flex-direction: column;
+}
+
+/* -------------------------------- add seance Modal -------------------------------- */
 .modal {
     display: none;
     position: fixed;
@@ -221,15 +218,21 @@ a{
     margin-left: 25%;
     margin-right: 25%;
     padding: 20px;
-    background-color: #F5DD90;
+    background-color: #FF681C;
     border-radius: 5px;
 }
 
+
 .topic{
     margin: 10px;
-    background-color: #1f1f1f;
+    background-color: antiquewhite;
     padding: 10px;
     border-radius: 5px;
+}
+
+.topic a,h2{
+    font-size: 50px;
+    color: #FF681C;
 }
 
 .topicInfos{
@@ -239,17 +242,17 @@ a{
 }
 
 .topicInfo{
-    background-color: #1f1f1f;
-    width: fit-content;
-    color: aliceblue;
+    background-color: antiquewhite;
+    color: #1F1F1F;
+    font-size: 15px;
     padding: 5px;
 }
 
 .topicContent{
-    background-color: aliceblue;
-    height: 80px;
-    padding: 5px;
-    border-radius: 5px;
+    margin-top: 5px;
+    margin: 10px;
+    height: 120px;
+    font-size: 30px;
 }
 
 #addTopic{
@@ -279,14 +282,81 @@ a{
     width: 80px;
     height: 25px;
 }
-/*topic*/
 
+@media (max-width: 1000px) {
+    #forum{
+        background-color: #FF681C;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    .topic{
+        background-color: antiquewhite;
+        height: 250px;
+    }
+    .topic a,h2{
+        font-size: 50px;
+        color: #FF681C;
+    }
+    
+    .topicInfos{
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        margin-top: 5px;
+    }
+
+    .topicInfo{
+        background-color: antiquewhite;
+        color: #1F1F1F;
+        font-size: 25px;
+    }
+
+    .topicContent{
+        margin-top: 5px;
+        margin: 10px;
+        height: 120px;
+        font-size: 30px;
+    }
+
+    #titre{
+        width: 40%;
+        height: 30px;
+        font-size: 20px;
+    }
+
+    #contenue{
+        font-size: 15px;
+        padding: 5px;
+    }
+
+    #contenue textarea{
+        width: 100%;
+    }
+
+    #envoyerTopic{
+        width: 20%;
+        height: 40px;
+        font-size: 20px;
+        margin-top: 5px;
+        margin-left: 40%;
+        margin-right: 40%;
+    }
+
+    #addTopic{
+        width: 50%;
+        margin-left: 25%;
+        margin-right: 25%;
+    }
+}
+
+/*topic*/
 #topicContainer{
     margin-top: 80px;
     margin-left: 25%;
     margin-right: 25%;
     padding: 20px;
-    background-color: #F5DD90;
+    background-color: #FF681C;
     border-radius: 5px;
 }
 
@@ -310,5 +380,5 @@ a{
 
 .cardContainer a{
     text-decoration: none;
-    color: #F5DD90;
+    color: #FF681C;
 }
