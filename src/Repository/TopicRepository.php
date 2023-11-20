@@ -31,6 +31,15 @@ class TopicRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findTopicsBySearch($searchTerm)
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.titre LIKE :searchTerm')
+            ->setParameter('searchTerm', '%'.$searchTerm.'%')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Topic[] Returns an array of Topic objects
 //     */
