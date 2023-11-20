@@ -30,30 +30,6 @@ class TopicController extends AbstractController
         return $this->redirectToRoute('app_topic');
     }
 
-    #[Route('/topic/add', name: 'add_topic')]
-    public function add(ManagerRegistry $doctrine, Topic $topic = null, Request $request,CategorieTopicRepository $categorieTopicRepository ): Response
-    {
-        $categorieTopic =  $categorieTopicRepository->find($_POST['categorieTopic']);
-
-        if(!$topic){
-
-            $topic = new Topic();
-
-            $topic->setUser($this->getUser());
-            $topic->setTitre($_POST['titre']);
-            $topic->setContenue($_POST['contenue']);
-            $topic->setDateCreation(new DateTime());
-            $topic->setVerrouiller(false);
-            $topic->setCategorieTopic($categorieTopic);
-            
-            $entityManager = $doctrine->getManager();
-            $entityManager->persist($topic);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_topic');
-    }
-
     #[Route('/topic/{id}', name: 'show_topic')]
     #[ParamConverter('topic', options: ['id' => 'id'])]
     public function show(Topic $topic,PostRepository $postRepository): Response
@@ -64,23 +40,6 @@ class TopicController extends AbstractController
             'posts' => $posts,
             'seancesPartager'=> $this->getUser()->getSeances(),
             'seanceFavUsers'=> $this->getUser()->getSeanceFavoris()
-        ]);
-    }
-
-    #[Route('/topic', name: 'app_topic')]
-    public function index(CategorieTopicRepository $categorieTopicRepository,TopicRepository $topicRepository): Response
-    {
-        $topic = null;
-        if (!empty($_POST)){
-            $topics = $topicRepository->findTopicsByCategory($_POST['categorieTopic']);
-        }else{
-            $topics = $topicRepository->findAll();
-        }
-        $categorieTopics = $categorieTopicRepository->findAll();
-
-        return $this->render('topic/index.html.twig', [
-            'categorieTopics' => $categorieTopics,
-            'topics' => $topics
         ]);
     }
 }
