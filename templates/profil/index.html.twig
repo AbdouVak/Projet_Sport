@@ -3,13 +3,16 @@
 {% block title %}Hello ProfilController!{% endblock %}
 
 {% block body %}
-<a href="{{ path('profil_anonymize') }}" >x</a>
-
+<div class="login">
+<div class="header-container">
     <h1>Edit Profile</h1>
+    <a class="close-link" href="{{ path('profil_anonymize') }}">x</a>
+</div>
 
-    {{ form_start(form) }}
-        {{ form_row(form.pseudo) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.currentPassword) }}
-    {{ form_end(form) }}
+    {{ form_start(form, {'attr': {'class': 'login-form-class'}}) }}
+    {{ form_row(form.pseudo, {'attr': {'class': 'login-input-class'}}) }}
+    {{ form_row(form.email, {'attr': {'class': 'login-input-class'}}) }}
+    {{ form_row(form.currentPassword, {'attr': {'class': 'login-input-class'}}) }}
+{{ form_end(form) }}
+</div>
 {% endblock %}

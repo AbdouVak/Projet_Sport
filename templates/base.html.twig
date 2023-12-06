@@ -32,7 +32,9 @@
   </div>
   <div class='right'>
     <input type="button" onclick="location.href='{{ path('app_profil') }}';" value='Mon profil' />
+    {% if is_granted('ROLE_ADMIN') %}
     <input type="button" onclick="location.href='{{ path('entraineur') }}';" value='Entraineur' />
+    {% endif %}
     <input type="button" onclick="location.href='{{ path('app_logout') }}';" value='Se déconnecter' />
   </div>
 </div>
@@ -57,12 +59,10 @@
         <div id='navBar'>
             <div id='navFonctionnaliter' class='center'>
                 <input type="button" onclick="location.href='{{ path('app_forum') }}';" value='Forum' />
-                <input type="button" onclick="location.href='{{ path('app_seance') }}';" value='Séance' />
             </div>
             <div id='navUtilisateur' class='right'>
                 <input type="button" onclick="location.href='{{ path('app_login') }}';" value='Se connecter' />
                 <input type="button" onclick="location.href='{{ path('app_register') }}';" value="S'enregistrer" />
-                <input type="button" onclick="location.href='{{ path('app_home') }}';" value="Accueil" />
             </div>
         </div>
     {% endif %}
