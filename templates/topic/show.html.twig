@@ -3,32 +3,34 @@
 {% block title %}Hello TopicController!{% endblock %}
 
 {% block body %}
+<div id='forum'>
     <div id='topicContainer'>
 
         <h1>{{topic.titre}}</h1>
 
-        <div class='topic'>
-            <div class='topicInfos'>
-                <div class='topicInfo'>{{topic.user.pseudo}}</div>
-                <div class='topicInfo'>{{topic.dateCreation|date('Y-m-d H:i:s')}}</div>
+        <div class='topic-container'>
+            <div class='topic-info-container'>
+                <div class='topic-info topic-user'>{{topic.user.pseudo}}</div>
+                <div class='topic-info topic-date'>{{topic.dateCreation|date('Y-m-d H:i:s')}}</div>
             </div>
 
-            <div class='topicContent'>
+            <div class='topic-content'>
                 {{topic.contenue}}
             </div>
         </div>
 
         {% for post in posts %}
-            <div class='topic'>
+            <div class='topic-container'>
 
-                <div class='topicInfos'>
-                    <div class='topicInfo'>{{post.user.pseudo}}</div>
-                    <div class='topicInfo'>{{post.dateCreation|date('Y-m-d H:i:s')}}</div>
+                <div class='topic-info-container'>
+                    <div class='topic-info topic-user'>{{post.user.pseudo}}</div>
+                    <div class='topic-info topic-date'>{{post.dateCreation|date('Y-m-d H:i:s')}}</div>
                 </div>
 
-                <div class='topicContent'>
+                <div class='topic-content'>
                     {{post.contenue}}
                 </div>
+
                 {% for seanceFav in post.seanceFavorite %}
                     <div class='seanceFav'>
                         <div>
@@ -48,21 +50,24 @@
                 
             </div>
         {% endfor %}
-        
-        {% if topic.verrouiller == false %}
-            <div id='formAddTopic'>
-                <form action="{{ path('add_post',{'topic_id': topic.id}) }}" method="post" >
-                    <label for="contenue">Contenue :</label>
-                    <textarea type="textarea" name="contenue"></textarea>
-                    <select name="seance" id="seance-select">
-                    <option value="{{null}}" selected disabled>------</option>
-                    {% for seance in seancesPartager %}
-                        <option value="{{seance.id}}">{{seance.nom}}</option>
-                    {% endfor %}
-                    </select>
-                    <input type="submit" value="ajouter post"></i>
-                </form>
-            </div>
+
+        {% if app.user %}
+            {% if topic.verrouiller == false %}
+                <div class="form-container">
+                    <form class="form" action="{{ path('add_post',{'topic_id': topic.id}) }}" method="post">
+                        <textarea class="form-textarea" name="contenue" id="contenue" rows="4" placeholder="Enter your content"></textarea>
+                        <select class="form-select" name="seance" id="seance-select">
+                            <option value="{{null}}" selected disabled>------</option>
+                            {% for seance in seancesPartager %}
+                                <option value="{{seance.id}}">{{seance.nom}}</option>
+                            {% endfor %}
+                        </select>
+
+                        <input class="form-submit" type="submit" value="Ajouter Post">
+                    </form>
+                </div>
+            {% endif %}
         {% endif %}
     </div>
+</div>
 {% endblock %}

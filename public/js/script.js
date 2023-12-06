@@ -1,73 +1,27 @@
-
-document.addEventListener("DOMContentLoaded", function() {
-  // Get the modal
-  var modal = document.getElementById("myModal");
-
-  // Get the button that opens the modal
-  var ajouterSeance = document.getElementById("ajouterSeance");
-
-  // Get the <span> element that closes the modal
-  var span = document.getElementsByClassName("close")[0];
-
-  // When the user clicks the button, open the modal 
-  ajouterSeance.onclick = function() {
-    modal.style.display = "block";
+function toggleMenu() {
+  var navbarLinks = document.querySelector('.navbar-links');
+  if (navbarLinks.style.display === 'flex') {
+      navbarLinks.style.display = 'none';
+  } else {
+      navbarLinks.style.display = 'flex';
   }
-
-  // When the user clicks on <span> (x), close the modal
-  span.onclick = function() {
-    modal.style.display = "none";
-  }
-
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  }
-
-  // Votre code JavaScript existant va ici
-  const categorieSelect = document.getElementById("categorie-select");
-  const topicForm = document.getElementById("topic-form");
-
-  categorieSelect.addEventListener("change", function () {
-    topicForm.submit();
+}
+$(document).ready(function () {
+  // Lorsque le lien est cliqué
+  $("#ajouterSeance").click(function () {
+      // Afficher la modal
+      $("#modalAddSeance").show();
   });
 
-  // Get all seance cards
-  var seanceCards = document.querySelectorAll('.cardSeance');
+  // Ajouter un écouteur d'événements pour les clics à l'extérieur de la modal
+  $(document).on('mouseup', function (e) {
+      var modal = $("#modalAddSeance");
 
-  // Add click event listener to each seance card
-  seanceCards.forEach(function (card) {
-    card.addEventListener('click', function () {
-      // Get the corresponding seance content
-      var seanceContent = card.querySelector('.seanceContent').innerHTML;
-
-      // Show the modal with the seance content
-      showModal(seanceContent);
-    });
+      // Vérifier si l'élément cliqué n'est pas à l'intérieur de la modal
+      if (!modal.is(e.target) && modal.has(e.target).length === 0) {
+          // Cacher la modal
+          modal.hide();
+      }
   });
-
-  // Function to show the modal with content
-  function showModal(content) {
-    // Get the modal
-    var modal = document.getElementById("myModal");
-
-    // Get the modal content element
-    var modalContent = modal.querySelector(".modal-content");
-
-    // Set the content of the modal
-    modalContent.innerHTML = content;
-
-    // Display the modal
-    modal.style.display = "block";
-  }
-
-  const card = document.getElementById("cardSeance")
-
-  card.addEventListener("click",flipcard);
-
-  function flipcard() {
-    card.classList.toggle("flipCard");
-  }
 });
+

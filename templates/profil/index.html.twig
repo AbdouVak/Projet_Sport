@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfilController!{% endblock %}
+
+{% block body %}
+<a href="{{ path('profil_anonymize') }}" >x</a>
+
+    <h1>Edit Profile</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.pseudo) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.currentPassword) }}
+    {{ form_end(form) }}
+{% endblock %}

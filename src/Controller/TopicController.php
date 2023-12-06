@@ -35,11 +35,20 @@ class TopicController extends AbstractController
     public function show(Topic $topic,PostRepository $postRepository): Response
     {
         $posts = $postRepository->findByTopicId($topic->getId());
+
+        $seancesPartager = null;
+        $seanceFavUsers = null;
+        
+        if ($this->getUser()) {
+            // L'utilisateur est connecté, récupérez les données nécessaires
+            $seancesPartager = $this->getUser()->getSeances();
+            $seanceFavUsers = $this->getUser()->getSeanceFavoris();
+        }
         return $this->render('topic/show.html.twig', [
             'topic' => $topic,
             'posts' => $posts,
-            'seancesPartager'=> $this->getUser()->getSeances(),
-            'seanceFavUsers'=> $this->getUser()->getSeanceFavoris()
+            'seancesPartager'=> $seancesPartager,
+            'seanceFavUsers'=> $seanceFavUsers
         ]);
     }
 }

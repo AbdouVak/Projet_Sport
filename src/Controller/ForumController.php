@@ -13,9 +13,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class ForumController extends AbstractController
 {
+    public function __construct(CsrfTokenManagerInterface $csrfTokenManager)
+    {
+        $this->csrfTokenManager = $csrfTokenManager;
+    }
+    
     #[Route('/forum', name: 'app_forum')]
     public function index(Topic $topic = null,Request $request,TopicRepository $topicRepository,CategorieTopicRepository $categorieTopicRepository,ManagerRegistry $doctrine): Response
     {   
@@ -48,14 +54,25 @@ class ForumController extends AbstractController
         $formAddTopic->handleRequest($request);
 
         if ($formAddTopic->isSubmitted() && $formAddTopic->isValid()) {
-            $topic = $formAddTopic->getData();
-            $topic->setUser($this->getUser());
-            $topic->setDateCreation(new DateTime());
-            $topic->setVerrouiller(false);
+            $token = $this->csrfTokenManager->getToken('topic')->getValue();
+            
+            // Validation du token CSRF
+            if ($this->isCsrfTokenValid('topic', $token)) {
+                $topic = $formAddTopic->getData();
+                $topic->setUser($this->getUser());
+                $topic->setDateCreation(new DateTime());
+                $topic->setVerrouiller(false);
 
-            $entityManager = $doctrine->getManager();
-            $entityManager->persist($topic);
-            $entityManager->flush();
+                $entityManager = $doctrine->getManager();
+                $entityManager->persist($topic);
+                $entityManager->flush();
+            }
+            return $this->render('forum/index.html.twig', [
+                'categorieTopics' => $categorieTopics,
+                'formSearchTopic' => $formSearchTopic->createView(),
+                'formAddTopic' => $formAddTopic->createView(),
+                'topics' => $topics
+            ]);
         }
 
         return $this->render('forum/index.html.twig', [

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Topic;
+use App\Form\SeanceType;
 use App\Entity\Seance;
 use App\Repository\SeanceRepository;
 use App\Repository\ExerciceRepository;
@@ -13,9 +14,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class SeanceController extends AbstractController
 {
+
+    public function __construct(CsrfTokenManagerInterface $csrfTokenManager)
+    {
+        $this->csrfTokenManager = $csrfTokenManager;
+    }
+
     #[Route('/seance/remove_seanceFavoris/{seance_id}', name: 'remove_seanceFavoris')]
     #[ParamConverter('seance', options: ['id' => 'seance_id'])]
     public function removeFavSeance(ManagerRegistry $doctrine, Seance $seance): Response{
@@ -54,7 +62,8 @@ class SeanceController extends AbstractController
     }
 
     #[Route('/seance/add', name: 'add_seance')]
-    public function add(ManagerRegistry $doctrine): Response{
+    public function add(Seance $seance = null,ManagerRegistry $doctrine): Response{
+        
         $seance = new Seance();
         $seance->setNom($_POST['nom']);
         $seance->setUser($this->getUser());
@@ -64,6 +73,8 @@ class SeanceController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('app_seance');    
+        // Affichage du formulaire
+        return $this->redirectToRoute('app_seance');
     }
 
     #[Route('/seance/showAdd/', name: 'show_add_seance')]
@@ -86,12 +97,32 @@ class SeanceController extends AbstractController
     }
 
     #[Route('/seance', name: 'app_seance')]
-    public function index(SeanceRepository $seanceRepository): Response
+    public function index(Seance $seance = null,SeanceRepository $seanceRepository,Request $request,ManagerRegistry $doctrine): Response
     {
+        if(!$seance){
+            $seance = new Seance();
+        }
+
+        $formAddSeance = $this->createForm(SeanceType::class,$seance);
+        $formAddSeance->handleRequest($request);
+
+        if ($formAddSeance->isSubmitted() && $formAddSeance->isValid()) {
+            $token = $this->csrfTokenManager->getToken('seance')->getValue();
+            
+            if ($this->isCsrfTokenValid('seance', $token)) {
+                $seance = $formAddSeance->getData();
+                $seance->setUser($this->getUser());
+                // Le formulaire est soumis et valide
+                $entityManager = $doctrine->getManager();
+                $entityManager->persist($seance);
+                $entityManager->flush();
+            }
+        }
         $seances = $seanceRepository->seanceUtilisateur( $this->getUser()->getId());
         return $this->render('seance/index.html.twig', [
             "seances" => $seances,
-            "User"=>$this->getUser()
+            "User"=>$this->getUser(),
+            'formAddSeance' => $formAddSeance->createView()
         ]);
     }
 }

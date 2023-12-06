@@ -4,11 +4,18 @@
 {% block body %}
     <div id='showSeance'> 
         <div id='seanceTitre'>
-            <h1>{{seance.nom}}</h1>
-            {% if app.user.id == seance.user.id %}
-                <a href="{{ path('delete_seance',{'id': seance.id}) }}"><h1><i class="fa-solid fa-trash"></i></h1></a>
-            {% endif %}
+            <div class="title-container">
+                <div class="title">
+                    <h1>{{ seance.nom }}</h1>
+                </div>
+                {% if app.user.id == seance.user.id %}
+                    <div class="delete-link-container">
+                        <a href="{{ path('delete_seance', {'id': seance.id}) }}" class="delete-link"><i class="fa-solid fa-trash"></i></a>
+                    </div>
+                {% endif %}
+            </div>
         </div>
+
 
         <table>
             <thead>
@@ -19,7 +26,7 @@
                     <th>Poid</th>
                     {% if app.user.id == seance.user.id %}
                         <th>Edit</th>
-                        <th>Supprimer</th>
+                        <th></th>
                     {% endif %}
                 </tr>
             </thead>
@@ -28,26 +35,27 @@
                 {% for exerciceSeance in seance.getSeanceExercices %}
                 </tbody>
                     <tr>
-                        <form action="{{ path('edit_exerciceToSeance' ,{'seance_id': seance.id}) }}" method="post" > 
+                        <form action="{{ path('edit_exerciceToSeance', {'seance_id': seance.id}) }}" method="post" class="edit-form">
                             <td>
-                                <select name="exercices" id="exercice-select">
-                                
-                                <option value="{{null}}" selected disabled>------</option>
-                                <option value="{{ exerciceSeance.exercice.id }}">{{ exerciceSeance.exercice.nom }}</option>
-                                {% for exercice in exercices %}
-                                    <option value="{{ exercice.id }}">{{ exercice.nom }}</option>
-                                {% endfor %}
+                                <select name="exercices" id="exercice-select" class="input-field">
+                                    <option value="{{ null }}" selected disabled>------</option>
+                                    <option value="{{ exerciceSeance.exercice.id }}" selected>{{ exerciceSeance.exercice.nom }}</option>
+                                    {% for exercice in exercices %}
+                                        <option value="{{ exercice.id }}">{{ exercice.nom }}</option>
+                                    {% endfor %}
                                 </select>
                             </td>
-                            <td><input type="number" value="{{ exerciceSeance.getSerie}}" name="serie"></td>
-                            <td><input type="number" value="{{ exerciceSeance.getRepetition}}" name="repetition"></td>
-                            <td><input type="number" value="{{ exerciceSeance.getPoid}}" name="poid"></td>
-                            <td><input type="submit" value="editer exercice"></i></td>
-                            <td><a href="{{ path('delete_SeanceExercice',{'id': exerciceSeance.id}) }}">x</a></td>
+                            <td><input type="number" value="{{ exerciceSeance.getSerie }}" name="serie" class="input-field"></td>
+                            <td><input type="number" value="{{ exerciceSeance.getRepetition }}" name="repetition" class="input-field"></td>
+                            <td><input type="number" value="{{ exerciceSeance.getPoid }}" name="poid" class="input-field"></td>
+                            <td><input type="submit" value="Éditer exercice" class="submit-btn"></td>
+                            <td><a href="{{ path('delete_SeanceExercice', {'id': exerciceSeance.id}) }}" class="delete-link">Supprimer</a></td>
                         </form>
+
                     </tr>
                 {% endfor %}
             {% else %}
+
                 {% for exerciceSeance in seance.getSeanceExercices %}
                     <tr>
                         <td>{{ exerciceSeance.exercice.nom }}</td>
@@ -57,29 +65,38 @@
                     </tr>
                 </tbody>
                 {% endfor %}
+                
             {% endif %}
             
         </table>
 
-
+</div>
         {% if app.user.id == seance.user.id %}
         <div class='formAddSeance'>
-            <form action="{{ path('add_exerciceToSeance' ,{'seance_id': seance.id}) }}" method="post" > 
-                <label for="exerice-select">Choisie un exerice :</label>
-                <select name="exercices" id="exercice-select">
+            <form action="{{ path('add_exerciceToSeance' ,{'seance_id': seance.id}) }}" method="post" class="exercise-form">
+                <select name="exercices" id="exercice-select" class="input-field">
+                    <option value="" disabled selected hidden>Choisissez un exercice</option>
                     {% for exercice in exercices %}
                         <option value="{{ exercice.id }}">{{ exercice.nom }}</option>
                     {% endfor %}
                 </select>
-                <label for="serie">Serie :</label>
-                <input type="number" name="serie">
-                <label for="repetition">Repetition :</label>
-                <input type="number" name="repetition">
-                <label for="poid">Poid :</label>
-                <input type="number" name="poid">
-                <input type="submit" value="ajouter exercice"></i>
+
+                <div class="input-group">
+                    <input type="number" name="serie" class="input-field" placeholder="Série">
+                </div>
+
+                <div class="input-group">
+                    <input type="number" name="repetition" class="input-field" placeholder="Répétition">
+                </div>
+
+                <div class="input-group">
+                    <input type="number" name="poid" class="input-field" placeholder="Poids">
+                </div>
+
+                <input type="submit" value="Ajouter exercice" class="submit-btn">
             </form>
         </div>
+
         {% endif %}
-    </div>
+    
 {% endblock %}

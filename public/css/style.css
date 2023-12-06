@@ -6,7 +6,7 @@
 }
 
 body{
-    background-color: #1F1F1F;
+    background-color: #FFF5D6;
     justify-content: center;
     background-size: cover;
     background-position: center;
@@ -14,20 +14,221 @@ body{
     
 }
 
-a{
-    text-decoration: none;
+/*Menu burger */
+.navbar-links {
+    display: none;
 }
 
-#registerForm{
-    background-color: aliceblue;
+/* Media Query pour les écrans de taille desktop */
+@media only screen and (min-width: 768px) {
+    .navbar-links {
+        display: none; 
+        /* Ajoutez d'autres styles au besoin */
+    }
+    .burger-menu {
+        display: none; /* Masquer le menu burger pour la version desktop */
+    }
+}
+
+/* Media Query pour les écrans de taille smartphone */
+@media only screen and (max-width: 767px) {
+    .navbar-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 65px; /* Ajustez la position selon vos besoins */
+        left: 0;
+        background-color: #333;
+        width: 100%;
+        padding: 15px;
+    }
+
+    .navbar-links a {
+        margin-bottom: 10px;
+    }
+
+    .burger-menu {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    .bar {
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        margin: 5px 0;
+    }
+}
+
+
+
+
+/*Nav*/
+#navBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #FF8921;
+    margin-bottom: 20px;
+}
+
+.center {
+    flex-grow: 1;
     display: flex;
     justify-content: center;
-    margin-left: 40%;
-    margin-right: 40%;
-    padding: 20px;
-    width: 20%;
+    align-items: center;
 }
-/* -------------------------------- vue seance -------------------------------- */ 
+
+.right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#navBar input[type="button"] {
+    padding: 10px;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#navBar input[type="button"]:hover {
+    background-color: #777;
+}
+
+
+
+
+/*Add topic*/
+
+/* Ajoutez ce CSS dans votre fichier de styles (par exemple, styles.css) */
+
+.add-topic-form {
+    max-width: 400px;
+    margin: auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+textarea.form-control {
+    resize: vertical; /* Permet le redimensionnement vertical uniquement pour le champ de texte */
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* topic */
+
+
+/* Styles par défaut */
+.search-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    align-items: center; /* Aligne les éléments verticalement au centre */
+}
+
+/* Style du champ de recherche */
+.search-input {
+    width: 200px; /* Ajoutez la largeur souhaitée pour le champ de recherche */
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Style du bouton de soumission */
+.search-button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px; /* Ajoute une marge à gauche du bouton pour l'espacement */
+}
+
+.search-button:hover {
+    background-color: #45a049;
+}
+
+#forum {
+    margin-left: 25%;
+    margin-right: 25%;
+}
+/* Styles pour supprimer le soulignement et la couleur bleue des liens */
+#forum a {
+    text-decoration: none; /* Supprime le soulignement des liens */
+    color: inherit; /* Utilise la couleur du texte parent pour les liens */
+}
+
+#forum a:hover {
+    text-decoration: underline; /* Ajoute un soulignement au survol du lien (facultatif) */
+}
+.topic-container {
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: #FF8921;
+    border-radius: 10px; /* Bordure arrondie pour le conteneur principal */
+}
+
+.topic-title {
+    font-size: 1.5em;
+    border-radius: 8px; /* Bordure arrondie pour le titre */
+}
+
+.topic-info-container {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 8px; /* Bordure arrondie pour le conteneur d'informations */
+}
+
+.topic-info {
+    margin-right: 10px;
+}
+
+.topic-content {
+    margin-top: 10px;
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    border-radius: 8px; /* Bordure arrondie pour le contenu */
+}
+
+.topic-content p {
+    font-size: 1.2em;
+}
+
+/*seance*/
 #seanceContainer{
     width: 40%;
     margin-left: 30%;
@@ -69,303 +270,201 @@ a{
     color: #1F1F1F;
 }
 
-/* -------------------------------- show seance -------------------------------- */
-#showSeance{
-    background-color: #FE4D4D;
-    color: #1F1F1F;
-    width: 40%;
-    margin-left: 30%;
-    margin-right: 30%;
-    margin-top: 50px;
-    padding: 10px;
-    border-radius: 5px;
+#modalAddSeance {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: #ff0000; /* Rouge */
+    padding: 20px;
+    max-width: 200px;
+    max-height: 200px;
+    width: 100%;
+    border-radius: 8px;
 }
 
-#seanceTitre{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-
-#showSeance table{
-    background-color: antiquewhite;
-    width: 40%;
-    margin-left: 30%;
-    margin-right: 30%;
-}
-
-#showSeance th{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-
-
-/* -------------------------------- add topic -------------------------------- */
-#formAddTopic{
-    background-color: #1F1F1F;
-    padding: 5px;
-    margin-left: 35%;
-    margin-right: 35%;
-    width: 30%;
-    border-radius: 5px;
-}
-
-#formAddTopic form{
-    display: flex;
-    flex-direction: column;
-}
-
-#formAddTopic textarea{
-    width: 200px;
-    height: 50px;
+#modalAddSeance h3 {
+    font-size: 1.5em;
     margin-bottom: 20px;
 }
 
-/* -------------------------------- Nav bar --------------------------------*/
-#navBar{
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    background-color: #FF681C;
+/*changer seance */
+
+
+.exercise-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
-#navFonctionnaliter{
-    
+.exercise-table th, .exercise-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
 }
 
-#navUtilisateur{
-    
+.exercise-table th {
+    background-color: #f2f2f2;
 }
 
-#navBar input{
-    border: 0;
-    outline: 0;
+.exercise-select {
+    width: 100%;
     padding: 5px;
-    border-radius: 5px;
-    width: auto;
-    background-color: #1F1F1F;
-    color: antiquewhite;
-    font-size: 150%;
-    transition:
-    width 0.3s,
-    height 0.3s,
-    background-color 0.3s,
-    transform 0.3s;
 }
 
-#navBar input:hover{
-    background-color: antiquewhite;
+.edit-form {
+    display: flex;
+    align-items: center;
+}
+
+.delete-link {
+    color: red;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+/*show seance*/
+#showSeance {
+    background-color: #FE4D4D;
     color: #1F1F1F;
-    transition-duration: 0.3s;
+    width: 60%;
+    margin: 50px auto;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+#seanceTitre {
+    text-align: center;
+    margin-top:20px;
+    margin-bottom:20px;
 }
 
-/* -------------------------------- add seance -------------------------------- */
-.formAddSeance{
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    flex-grow: 1; /* Utilise l'espace disponible restant */
+    margin-right: 10px; /* Espace entre le titre et le lien de suppression */
+}
+
+h1 {
+    margin: 0;
+}
+
+.delete-link-container {
+    margin-left: 10px; /* Espace entre le lien de suppression et le titre */
+}
+
+.delete-link {
+    color: #ff0000;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+.delete-link:hover {
+    text-decoration: underline;
+}
+
+
+table {
+    margin: 0 auto; /* Centre la table horizontalement */
+}
+/*ajouter une seance exexerice*/
+.formAddSeance {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.exercise-form {
     display: flex;
     flex-direction: column;
 }
 
-/* -------------------------------- add seance Modal -------------------------------- */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-field {
     width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
-/*  Modal Content/Box  */
-.modal-content {
-    background-color: #BF1B1B;
-    margin: 15% auto;
-    padding: 20px;
-    border: 3px solid #000000;
-    border-radius: 5px;
-    width: 200px;
-    height: 200px;
-    display: flex;
+#exercice-select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
-/*  The Close Button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    width: 10px;
-    height: 10px;
-}
-
-.close:hover,
-.close:focus {
-    width: 10px;
-    height: 10px;
-    color: black;
-    text-decoration: none;
+.submit-btn {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
 }
 
-/* -------------------------------- Vue forum -------------------------------- */
-#forum{
-    margin-top: 35px;
-    margin-left: 25%;
-    margin-right: 25%;
-    padding: 10px;
-    background-color: #FF681C;
-    border-radius: 5px;
+.submit-btn:hover {
+    background-color: #45a049;
 }
-
-#barRecherche{
+.edit-form {
     display: flex;
-    flex-direction: row;
+    align-items: center;
 }
 
-/* */
-.topic{
-    background-color: antiquewhite;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
+
+#exercice-select {
+    padding: 8px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
-.topic a,h2{
-    font-size: 50px;
-    color: #FF681C;
+.submit-btn {
+    background-color: #4caf50;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-.topicInfos{
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
+.submit-btn:hover {
+    background-color: #45a049;
 }
 
-.topicInfo{
-    background-color: antiquewhite;
-    color: #1F1F1F;
-    font-size: 15px;
-    padding: 5px;
+.delete-link {
+    color: #ff0000;
+    text-decoration: none;
+    margin-left: 10px;
+    padding: 5px 10px; /* Ajoutez du rembourrage pour définir la taille du fond blanc */
+    border-radius: 4px; /* Ajoutez un peu de bordure arrondie */
+    background-color: #ffffff; /* Couleur du fond blanc */
+    display: inline-block; /* Pour permettre la couleur de fond à s'appliquer correctement */
 }
 
-.topicContent{
-    margin-top: 5px;
-    margin: 10px;
-    height: 120px;
-    font-size: 30px;
-}
-
-.topicContent p{
-    width: 100%;
-    height: 100%;
-    margin-bottom: 10px;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-/* Form pour ajouter un topic */
-#addTopic{
-    width: 60%;
-    margin-left: 17.5%;
-    margin-right: 17.5%;
-    border-radius: 5px;
-    padding: 15px;
-    background-color: #1f1f1f;
-    color: aliceblue;
-    display: flex;
-    flex-direction: column;
-}
-
-#addTopic input{
-    width: 40%;
-    height: 40px;
-    font-size: 20px;
-    margin-top: 5px;
-    margin-left: 30%;
-    margin-right: 30%;
-}
-
-@media (max-device-width: 750px) {
-    #forum{
-        background-color: #FF681C;
-        margin-left: 10%;
-        margin-right: 10%;
-    }
-
-    .topic{
-        background-color: antiquewhite;
-        height: 250px;
-    }
-    .topic a,h2{
-        font-size: 50px;
-        color: #FF681C;
-    }
-    
-    .topicInfos{
-        display: flex;
-        flex-direction: row;
-        gap: 5px;
-        margin-top: 5px;
-    }
-
-    .topicInfo{
-        background-color: antiquewhite;
-        color: #1F1F1F;
-        font-size: 25px;
-    }
-
-    .topicContent{
-        margin-top: 5px;
-        margin: 10px;
-        height: 120px;
-        font-size: 30px;
-    }
-
-    #titre{
-        width: 40%;
-        height: 30px;
-        font-size: 20px;
-    }
-
-    #contenue{
-        font-size: 15px;
-        padding: 5px;
-    }
-
-    #contenue textarea{
-        width: 100%;
-        resize : none;
-    }
-
-    #envoyerTopic{
-        width: 40%;
-        height: 40px;
-        font-size: 20px;
-        margin-top: 5px;
-        margin-left: 30%;
-        margin-right: 30%;
-    }
-
-    #addTopic{
-        width: 50%;
-        margin-left: 25%;
-        margin-right: 25%;
-    }
-}
-
-/*topic*/
-#topicContainer{
-    margin-top: 80px;
-    margin-left: 25%;
-    margin-right: 25%;
-    padding: 20px;
-    background-color: #FF681C;
-    border-radius: 5px;
+.delete-link:hover {
+    text-decoration: underline;
 }
 
 .seanceFav{
@@ -381,7 +480,49 @@ a{
     border-radius: 5px;
 }
 
-.seanceFav i {
-    
-    font-size: 40px;
+/* add post*/
+
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-label {
+    margin-bottom: 8px;
+}
+
+.form-textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+.form-select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+.form-submit {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-submit:hover {
+    background-color: #0056b3;
 }

@@ -2,21 +2,18 @@
 {% block title %}Hello SeanceController!{% endblock %}
 
 {% block body %}
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <form action="{{ path('add_seance') }}" method="post" >
-                <input type="string" name="nom">
-                <input type="submit" value="ajouter seance"></i>
-            </form>
-            <span class="close">&times;</span>
-        </div>
+    
+
+    <div id="modalAddSeance" style="display: none;">
+        {{ form_start(formAddSeance)}}
+            {{ form_row(formAddSeance.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom de la séance'}, 'label': false}) }}
+            {{ form_row(formAddSeance.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+        {{ form_end(formAddSeance) }}
+
     </div>
 
     <div id='seanceContainer'>
     <h1>Vos Séance</h1>
-
     {# cet div permet de contenir les séances et l'ajout des séances #}
 
         {# ces lignes de code créerons des card des séances #}
@@ -29,9 +26,11 @@
             </a>
 
             {% for seance in seances %}
-            <div class='cardSeance'>
-                
-            </div>
+            <a href="{{ path('show_seance',{'id': seance.id}) }}">
+                <div class='cardSeance'>
+                    {{ seance.nom }}
+                </div>
+            </a>
             {% endfor %}
 
             {% for seancesFav in app.user.SeanceFavoris %}
@@ -44,4 +43,8 @@
         </div>
     </div>
 
+{% endblock %}
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
 {% endblock %}

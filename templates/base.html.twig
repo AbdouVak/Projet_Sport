@@ -1,40 +1,80 @@
 <!DOCTYPE html>
 <html>
     <head>
+        {% block javascripts_head %}
+        {% endblock %}
+
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta name="description" content="
+            Rejoignez notre communauté passionnée de musculation! 
+            Découvrez des séances d'entraînement inspirantes, échangez des conseils, 
+            et <strong>créez vos propres séances personnalisées</strong>. 
+            Partagez-les avec d'autres passionnés, 
+            repoussez vos limites ensemble et atteignons nos objectifs de fitness. 
+            Rejoignez-nous maintenant et sculptez le meilleur de vous-même!"
+        >
+        <title>{% block title %}Porjet Sport!{% endblock %}</title>
+        
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset( 'css/style.css')}}"> 
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         {% endblock %}
 
-        {% block javascript %}
-            <script src="/js/script.js"></script>
-        {% endblock %}
-
-        
     </head>
-    <body>
-        {% if app.user %}
-            <div id='navBar'>
-                <div id='navFonctionnaliter'>
-                    <input type="button" onclick="location.href='{{ path('app_forum') }}';" value='Forum' />
-                    <input type="button" onclick="location.href='{{ path('app_seance') }}';" value='Séance' />
-                </div>
-                <div id='navUtilisateur'>
-                    <input type="button" onclick="location.href='{{ path('entraineur') }}';" value='Mon profil' />
-                    <input type="button" onclick="location.href='{{ path('app_logout') }}';" value='Se déconnecter' />
-                </div>
+    {% if app.user %}
+    <div id='navBar'>
+  <div class='center'>
+    <input type="button" onclick="location.href='{{ path('app_forum') }}';" value='Forum' />
+    <input type="button" onclick="location.href='{{ path('app_seance') }}';" value='Séance' />
+  </div>
+  <div class='right'>
+    <input type="button" onclick="location.href='{{ path('app_profil') }}';" value='Mon profil' />
+    <input type="button" onclick="location.href='{{ path('entraineur') }}';" value='Entraineur' />
+    <input type="button" onclick="location.href='{{ path('app_logout') }}';" value='Se déconnecter' />
+  </div>
+</div>
+
+<div class="burger-menu" onclick="toggleMenu()">
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+</div>
+
+<div class="navbar-links" id="navbarLinks">
+  <a href="{{ path('app_forum') }}">Forum</a>
+  <a href="{{ path('app_seance') }}">Séance</a>
+    <a href="{{ path('app_categorie_muscle') }}">Séance</a>
+  <a href="{{ path('app_profil') }}">Mon profil</a>
+  <a href="{{ path('app_logout') }}">Se déconnecter</a>
+</div>
+
+    {% endif %}
+
+    {% if not app.user %}
+        <div id='navBar'>
+            <div id='navFonctionnaliter' class='center'>
+                <input type="button" onclick="location.href='{{ path('app_forum') }}';" value='Forum' />
+                <input type="button" onclick="location.href='{{ path('app_seance') }}';" value='Séance' />
             </div>
-        {% else %}
-            <input type="button"  onclick="location.href='{{ path('app_login') }}';" value='Se connecter' />
-            <input type="button"  onclick="location.href='{{ path('app_register') }}';" value="S'enregister" />
-            <input type="button"  onclick="location.href='{{ path('app_home') }}';" value="Accueil" />
-        {% endif %}
+            <div id='navUtilisateur' class='right'>
+                <input type="button" onclick="location.href='{{ path('app_login') }}';" value='Se connecter' />
+                <input type="button" onclick="location.href='{{ path('app_register') }}';" value="S'enregistrer" />
+                <input type="button" onclick="location.href='{{ path('app_home') }}';" value="Accueil" />
+            </div>
+        </div>
+    {% endif %}
+        
+
+
         
         {% block body %}
         {% endblock %}
     </body>
-    
+    {% block javascripts %}
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="{{ asset ('js/script.js')}}"></script>
+    {% endblock %}
 </html>
