@@ -22,52 +22,36 @@
             <link rel="stylesheet" href="{{ asset( 'css/style.css')}}"> 
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         {% endblock %}
-
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter&display=swap">
     </head>
-    {% if app.user %}
-    <div id='navBar'>
-  <div class='center'>
-    <input type="button" onclick="location.href='{{ path('app_forum') }}';" value='Forum' />
-    <input type="button" onclick="location.href='{{ path('app_seance') }}';" value='Séance' />
-  </div>
-  <div class='right'>
-    <input type="button" onclick="location.href='{{ path('app_profil') }}';" value='Mon profil' />
-    {% if is_granted('ROLE_ADMIN') %}
-    <input type="button" onclick="location.href='{{ path('entraineur') }}';" value='Entraineur' />
-    {% endif %}
-    <input type="button" onclick="location.href='{{ path('app_logout') }}';" value='Se déconnecter' />
-  </div>
-</div>
+  
+  </body>
+  <nav class="navbar">
+    <div class="navbar-logo">
+        <!-- Ajoutez votre logo ici -->
+    </div>
+    <ul>
+        <li><a href="{{ path('app_home') }}">Accueil</a></li>
+        <li><a href="{{ path('app_forum') }}">Forum</a></li>
 
-<div class="burger-menu" onclick="toggleMenu()">
-  <div class="bar"></div>
-  <div class="bar"></div>
-  <div class="bar"></div>
-</div>
+        {% if app.user %}
+            <li><a href="{{ path('app_seance') }}">Séance</a></li>
+            <li><a href="{{ path('app_profil') }}">Mon profil</a></li>
+            <li><a href="{{ path('entraineur') }}">Entraineur</a></li>
+            <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+        {% endif %}
 
-<div class="navbar-links" id="navbarLinks">
-  <a href="{{ path('app_forum') }}">Forum</a>
-  <a href="{{ path('app_seance') }}">Séance</a>
-    <a href="{{ path('app_categorie_muscle') }}">Séance</a>
-  <a href="{{ path('app_profil') }}">Mon profil</a>
-  <a href="{{ path('app_logout') }}">Se déconnecter</a>
-</div>
-
-    {% endif %}
-
-    {% if not app.user %}
-        <div id='navBar'>
-            <div id='navFonctionnaliter' class='center'>
-                <input type="button" onclick="location.href='{{ path('app_forum') }}';" value='Forum' />
-            </div>
-            <div id='navUtilisateur' class='right'>
-                <input type="button" onclick="location.href='{{ path('app_login') }}';" value='Se connecter' />
-                <input type="button" onclick="location.href='{{ path('app_register') }}';" value="S'enregistrer" />
-            </div>
-        </div>
-    {% endif %}
-        
-
+        {% if not app.user %}
+            <li><a href="{{ path('app_login') }}">Se connecter</a></li>
+            <li><a href="{{ path('app_register') }}">S'enregistrer</a></li>
+        {% endif %}
+    </ul>
+    <div class="burger-menu" onclick="toggleMenu()">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+</nav>
 
         
         {% block body %}
