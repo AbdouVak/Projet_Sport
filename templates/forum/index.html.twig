@@ -20,51 +20,44 @@
     #}
 
     {% for topic in topics %}
-    <div class='topic-container'>
-        <h2 class='topic-title'><a href="{{ path('show_topic' ,{'id': topic.id}) }}">{{topic.titre}}</a></h2>
-        
-        <div class='topic-info-container'>
-            {% if topic.user != null %}
-                <div class='topic-info topic-user'>{{topic.user.pseudo}}</div>
-            {% else %}
-                <div class='topic-info topic-user'>Anonyme</div>
-            {% endif %}
-            <div class='topic-info topic-date'>{{topic.dateCreation|date('Y-m-d')}}</div>
-            <div class='topic-info topic-category'>#{{topic.categorieTopic.categorie}}</div>
-            {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('veroullier_topic',{'id': topic.id}) }}" class='topic-info topic-lock'>ver</a>
-            {% endif %}
-        </div>
-
-        <div class='topic-content'>
-            <p>{{topic.contenue}}</p>
-        </div>
+    <div class="topic">
+        <a href="{{ path('show_topic' ,{'id': topic.id}) }}">
+            <div class="topicInfoContainer">
+                {% if topic.user != null %}
+                    <div class="topicPseudo">{{topic.user.pseudo}}</div>
+                {% else %}
+                    <div class="topicPseudo">>Anonyme</div>
+                {% endif %}
+                    <div class="topicDate">{{topic.dateCreation|date('Y-m-d')}}</div>
+                    <div class="topicCategorie">#{{topic.categorieTopic.categorie}}</div>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('veroullier_topic',{'id': topic.id}) }}">ver</a>
+                {% endif %}
+            </div>
+            <h2>{{topic.titre}}</h2>
+            <div>
+                <p>{{topic.contenue}}</p>
+            </div>
+        </a>
     </div>
+    <div class="bar"></div>
     {% endfor %}
 
 
     {% if app.user %}
         
-        <div id='addTopic' class="add-topic-form">
+        <div>
             {{ form_start(formAddTopic) }}
             
-            <div class="form-group">
                 {{ form_row(formAddTopic.titre, {'attr': {'class': 'form-control', 'placeholder': 'Titre du sujet'}, 'label': false}) }}
-            </div>
-            
-            <div class="form-group">
+                
                 {{ form_row(formAddTopic.categorieTopic, {'attr': {'class': 'form-control'}, 'label': false}) }}
-            </div>
-            
-            <div class="form-group">
+                
                 {{ form_row(formAddTopic.contenue, {'attr': {'class': 'form-control', 'rows': '5', 'placeholder': 'Contenu du sujet'}, 'label': false}) }}
-            </div>
-            
-            {{ form_row(formAddTopic._token) }}
-            
-            <div class="form-group">
+                
+                {{ form_row(formAddTopic._token) }}
+                
                 {{ form_row(formAddTopic.submit, {'attr': {'class': 'btn btn-primary'}}) }}
-            </div>
 
             {{ form_end(formAddTopic) }}
         </div>
