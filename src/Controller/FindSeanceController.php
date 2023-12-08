@@ -21,6 +21,9 @@ class FindSeanceController extends AbstractController
         $formChooseMuscle = $this->createForm(SeanceByMuscleType::class);
         $formChooseMuscle->handleRequest($request);
 
+        if ($formChooseMuscle->isSubmitted() && $formChooseMuscle->isValid()) {
+            dd($formChooseMuscle->getData());
+        }
         $seances = $seanceRepository->findAll();
         return $this->render('find_seance/index.html.twig', [
             'seances' => $seances,
