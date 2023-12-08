@@ -37,11 +37,13 @@ class TopicType extends AbstractType
                 'attr' => ['id' => 'addTopicTexteArea'],
                 'choice_label' => 'categorie', // Le champ qui sera affiché dans la liste déroulante
             ])
-            ->add('contenue', TextareaType::class)
+            ->add('contenue', TextareaType::class, [
+                'attr' => ['readonly' => true,'rows' => 5],
+            ])
             ->add('csrf_token', HiddenType::class, [
                 'mapped' => false,
             ])
-            ->add('submit', SubmitType::class);
+            ->add('Poster', SubmitType::class);
         ;
     }
 
