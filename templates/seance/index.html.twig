@@ -4,13 +4,11 @@
 {% block body %}
     
 
-    <div id="modalAddSeance" style="display: none;">
         {{ form_start(formAddSeance)}}
             {{ form_row(formAddSeance.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom de la séance'}, 'label': false}) }}
             {{ form_row(formAddSeance.submit, {'attr': {'class': 'btn btn-primary'}}) }}
         {{ form_end(formAddSeance) }}
 
-    </div>
 
     <div id='seanceContainer'>
     <h1>Vos Séance</h1>
