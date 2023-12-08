@@ -30,22 +30,23 @@
     <div class="navbar-logo">
         <!-- Ajoutez votre logo ici -->
     </div>
-    <ul>
-        <li><a href="{{ path('app_home') }}">Accueil</a></li>
-        <li><a href="{{ path('app_forum') }}">Forum</a></li>
+    <div>
+        <div><a href="{{ path('app_home') }}">Accueil</a></div>
+        <div><a href="{{ path('app_forum') }}">Forum</a></div>
 
         {% if app.user %}
-            <li><a href="{{ path('app_seance') }}">Séance</a></li>
-            <li><a href="{{ path('app_profil') }}">Mon profil</a></li>
-            <li><a href="{{ path('entraineur') }}">Entraineur</a></li>
-            <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+            <div><a href="{{ path('app_seance') }}">Créer vos Séances</a></div>
+            <div><a href="{{ path('app_find_seance') }}">Trouver des Séances</a></div>
+            <div><a href="{{ path('app_profil') }}">Mon profil</a></div>
+            <div><a href="{{ path('entraineur') }}">Entraineur</a></div>
+            <div><a href="{{ path('app_logout') }}">Se déconnecter</a></div>
         {% endif %}
 
         {% if not app.user %}
-            <li><a href="{{ path('app_login') }}">Se connecter</a></li>
-            <li><a href="{{ path('app_register') }}">S'enregistrer</a></li>
+            <div><a href="{{ path('app_login') }}">Se connecter</a></div>
+            <div><a href="{{ path('app_register') }}">S'enregistrer</a></div>
         {% endif %}
-    </ul>
+    </div>
     <div class="burger-menu" onclick="toggleMenu()">
         <div class="bar"></div>
         <div class="bar"></div>
