@@ -161,7 +161,9 @@ body{
     #presentationForum {
         display:flex;
         flex-direction: column;
-        align-items: center;
+    }
+    #presentationForum .presentationInfoForum{
+        margin-left: 80px;
     }
     .presentationInfoForum{
         margin-left: 5%;
@@ -174,6 +176,7 @@ body{
     #presentationForum .imgSpotter{
         width: 200px;
         height: 200%;
+        margin-left: 200px;
         margin-top: 30px;
         margin-bottom: 30px;
     }
@@ -197,7 +200,7 @@ body{
     padding-left: 20px;
     padding-right: 20px;
     background-color: #ece9e8;
-    min-height: 500px;
+    min-height: 400px;
 }
 
 
@@ -250,7 +253,7 @@ body{
     position: absolute;
     user-select: none;
     overflow: hidden;
-    top: 675px;
+    top: 750px;
     left: 150px;
     z-index: 1;
 }
@@ -270,9 +273,14 @@ body{
         left: 200px;
     
     }
-
+    
     #presentationSeance .imgBarre {
         width: 400px;
+        margin-left: 200px;
+    }
+
+    #presentationSeance .presentationInfoSeance {
+        margin-left: 200px;
     }
 
     #presentationSeance .partagerBackgorundContainer{
@@ -307,17 +315,38 @@ body{
 
 /*------------------------------------ Forum ------------------------------------*/
 
-#forum{
+#forumContainer{
     background-color: #fe7000;
-    margin-left: 20%;
-    margin-right: 20%;
+    height: 100vh;
+    justify-content: center;
+}
+
+#forum{
+    margin-left: 25%;
+    margin-right: 25%;
+    padding: 20px;
+
+}
+
+.searchForm{
+    margin-bottom: 30px;
+}
+
+.searchInput{
+    border-radius: 10px;
+    border-color: transparent;
+    height: 25px;
+    width: 90%;
+    background-color: #ebebeb;
+    padding: 5px;
+    padding-left: 10px;
+    margin-left: 3%;
+    margin-right: 3%;
 }
 
 .topic{
     background-color: aliceblue;
     border-radius: 5px;
-    margin-left: 20%;
-    margin-right: 20%;
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px;
@@ -343,6 +372,123 @@ body{
     background-color: #e2e2e2;
 }
 
-hr{
-    color: #2d2d2d;
+.formAddTopic{
+    margin-left: 20%;
+    margin-right: 20%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+}
+
+.formTitre{
+    padding: 5px;
+    padding-left: 15px;
+    border-radius: 10px;
+    border-color: transparent;
+    height: 40px;
+    width: 100%;
+    background-color: #ebebeb;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.formContenue{
+    padding: 10px;
+    border-radius: 5px;
+    border-color: 1px solid black;
+    height: 100px;
+    width: 100%;
+    background-color: #ebebeb;
+}
+
+.formCategorie{
+    border-radius: 5px;
+    border-color: 1px solid black;
+    background-color: #ebebeb;
+    height: 30px;
+    width: 100px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.submit{
+    background-color: rgb(52, 52, 204);
+    color: #ffffff;
+    border-color: transparent;
+    border-radius: 5px;
+    padding: 10px;
+    padding-left: 13px;
+    padding-right: 13px;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    margin-left: 90%;
+    transition: 0.5s;
+}
+
+.submit:hover{
+    background-color: #ffffff;
+    color: rgb(52, 52, 204);
+    transition: 0.5s;
+    border-color: rgb(52, 52, 204);
+}
+
+/*------------------------------------ TROUVER SEANCE ------------------------------------*/
+
+.findSeance{
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    gap: 10px;
+    flex-direction: row;
+    flex-wrap:wrap;
+    width: 60%;
+}
+
+.seanceContainer{
+    height: 200px;
+    width: 200px;
+    background-color: #fe7000;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.seanceInfo{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    user-select: none;
+}
+
+.seanceInfo h1{
+    font-family: HeadingProTreble-ExtraBold,sans-serif;
+    -webkit-text-stroke: 1px #2d2d2d;
+    align-self: center;
+    margin-top: 65px;
+    margin-bottom: 65px;
+    color: #ffffff;
+}
+
+.seanceDesc{
+    display: none;
+    user-select: none;
+}
+
+.seanceDesc h3{
+    margin-bottom: 10px;
+}
+
+.seanceDesc p{
+    font-size: 20px;
 }
