@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FindSeanceController!{% endblock %}
+
+{% block body %}
+<div class="findSeance">
+
+{{ form_start(formChooseMuscle) }}
+{{ form_end(formChooseMuscle) }}
+
+
+    <div class="container">
+    {% for seance in seances %}
+        <div class="seanceContainer">
+            <div class="seanceInfo">
+                <p>Crée par {{seance.user.pseudo}}</p>
+                <h1>{{seance.nom}}</h1>
+                <div class="nbrExercice"><p>Nombre d'exercice : {{seance.nbrExercice}}</p></div>
+            </div>
+            <div class="seanceDesc" class="hidden">
+            <h3>Exercice :</h3>
+            {% for exercice in seance.getSeanceExercices %}
+                <p>{{exercice.exercice.nom}}</p>
+            {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
+{% endblock %}
