@@ -30,12 +30,9 @@ class Post
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\ManyToMany(targetEntity: Seance::class, inversedBy: 'posts')]
-    private Collection $seanceFavorite;
 
     public function __construct()
     {
-        $this->seanceFavorite = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -87,30 +84,6 @@ class Post
     public function setUser(?User $user): static
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Seance>
-     */
-    public function getSeanceFavorite(): Collection
-    {
-        return $this->seanceFavorite;
-    }
-
-    public function addSeanceFavorite(Seance $seanceFavorite): static
-    {
-        if (!$this->seanceFavorite->contains($seanceFavorite)) {
-            $this->seanceFavorite->add($seanceFavorite);
-        }
-
-        return $this;
-    }
-
-    public function removeSeanceFavorite(Seance $seanceFavorite): static
-    {
-        $this->seanceFavorite->removeElement($seanceFavorite);
 
         return $this;
     }

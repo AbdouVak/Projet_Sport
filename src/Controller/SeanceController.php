@@ -18,36 +18,10 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class SeanceController extends AbstractController
 {
-
+    private $csrfTokenManager;
     public function __construct(CsrfTokenManagerInterface $csrfTokenManager)
     {
         $this->csrfTokenManager = $csrfTokenManager;
-    }
-
-    #[Route('/seance/remove_seanceFavoris/{seance_id}', name: 'remove_seanceFavoris')]
-    #[ParamConverter('seance', options: ['id' => 'seance_id'])]
-    public function removeFavSeance(ManagerRegistry $doctrine, Seance $seance): Response{
-
-        $user = $this->getUser()->removeSeanceFavori($seance);
-
-        $entityManager = $doctrine->getManager();
-        $entityManager->persist($user);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_seance');    
-    }
-
-    #[Route('/seance/add_seanceFavoris/{seance_id}', name: 'add_seanceFavoris')]
-    #[ParamConverter('seance', options: ['id' => 'seance_id'])]
-    public function addFavSeance(ManagerRegistry $doctrine, Seance $seance): Response{
-
-        $user = $this->getUser()->addSeanceFavori($seance);
-
-        $entityManager = $doctrine->getManager();
-        $entityManager->persist($user);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_seance');    
     }
 
     #[Route('/seance/delete/{id}', name: 'delete_seance')]

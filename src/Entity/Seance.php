@@ -27,15 +27,10 @@ class Seance
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'SeanceFavoris')]
     private Collection $users;
 
-    #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'seanceFavorite')]
-    private Collection $posts;
-
 
     public function __construct()
     {
         $this->seanceExercices = new ArrayCollection();
-        $this->users = new ArrayCollection();
-        $this->posts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -127,30 +122,9 @@ class Seance
         return $this;
     }
 
-    /**
-     * @return Collection<int, Post>
-     */
-    public function getPosts(): Collection
+    public function nbrExercice(): int
     {
-        return $this->posts;
-    }
-
-    public function addPost(Post $post): static
-    {
-        if (!$this->posts->contains($post)) {
-            $this->posts->add($post);
-            $post->addSeanceFavorite($this);
-        }
-
-        return $this;
-    }
-
-    public function removePost(Post $post): static
-    {
-        if ($this->posts->removeElement($post)) {
-            $post->removeSeanceFavorite($this);
-        }
-
-        return $this;
+        
+        return count($this->getSeanceExercices());
     }
 }
