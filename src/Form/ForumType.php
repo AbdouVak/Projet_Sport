@@ -13,8 +13,7 @@ class ForumType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('search', TextType::class, ['label' => 'Recherche'])
-            ->add('submit', SubmitType::class, ['label' => 'Rechercher']);
+            ->add('search', TextType::class, ['label' => 'Recherche']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
