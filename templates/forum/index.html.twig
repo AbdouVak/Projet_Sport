@@ -3,10 +3,10 @@
 {% block title %}Hello ForumController!{% endblock %}
 
 {% block body %}
-<div id='forum'>
-    {{ form_start(formSearchTopic, {'attr': {'class': 'search-form'}}) }}
-        {{ form_row(formSearchTopic.search, {'attr': {'class': 'search-input', 'placeholder': 'Recherchez un sujet'}, 'label': false}) }}
-        {{ form_row(formSearchTopic.submit, {'attr': {'class': 'search-button'}}) }}
+<div id="forumContainer">
+<div id="forum">
+    {{ form_start(formSearchTopic, {'attr': {'class': 'searchForm'}}) }}
+        {{ form_row(formSearchTopic.search, {'attr': {'class': 'searchInput', 'placeholder': 'Recherchez un sujet'}, 'label': false}) }}
     {{ form_end(formSearchTopic) }}
     
     {#  
@@ -40,28 +40,27 @@
             </div>
         </a>
     </div>
-    <div class="bar"></div>
     {% endfor %}
 
 
     {% if app.user %}
         
         <div>
-            {{ form_start(formAddTopic) }}
-            
-                {{ form_row(formAddTopic.titre, {'attr': {'class': 'form-control', 'placeholder': 'Titre du sujet'}, 'label': false}) }}
+            {{ form_start(formAddTopic, {'attr': {'class': 'formAddTopic'}}) }}
+
+                {{ form_row(formAddTopic.titre, {'attr': {'class': 'formTitre', 'placeholder': 'Titre du sujet'}, 'label': false}) }}
+
+                {{ form_row(formAddTopic.contenue, {'attr': {'class': 'formContenue', 'placeholder': 'Contenu du sujet'}, 'label': false}) }}
                 
-                {{ form_row(formAddTopic.categorieTopic, {'attr': {'class': 'form-control'}, 'label': false}) }}
-                
-                {{ form_row(formAddTopic.contenue, {'attr': {'class': 'form-control', 'rows': '5', 'placeholder': 'Contenu du sujet'}, 'label': false}) }}
-                
+                {{ form_row(formAddTopic.categorieTopic, {'attr': {'class': 'formCategorie'}, 'label': false}) }}
+
                 {{ form_row(formAddTopic._token) }}
                 
-                {{ form_row(formAddTopic.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+                {{ form_row(formAddTopic.Poster, {'attr': {'class': 'submit'}}) }}
 
             {{ form_end(formAddTopic) }}
         </div>
     {% endif %}
-
+</div>
 </div>
 {% endblock %}
