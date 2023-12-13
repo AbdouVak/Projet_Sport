@@ -32,6 +32,24 @@ class SeanceType extends AbstractType
                 ]),
             ],
         ])
+        ->add('exercice', EntityType::class, [
+            'class' => Exercice::class,
+            'choice_label' => 'nom',
+            'placeholder' => 'Choisissez un exercice',
+            'required' => true,
+        ])
+        ->add('serie', null, [
+            'label' => 'Série',
+            'attr' => ['placeholder' => 'Entrez le nombre de séries']
+        ])
+        ->add('repetition', null, [
+            'label' => 'Répétition',
+            'attr' => ['placeholder' => 'Entrez le nombre de répétitions']
+        ])
+        ->add('poid', null, [
+            'label' => 'Poids',
+            'attr' => ['placeholder' => 'Entrez le poids']
+        ])
         ->add('csrf_token', HiddenType::class, [
             'mapped' => false,
         ])
@@ -42,8 +60,6 @@ class SeanceType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            'data_class' => Seance::class,
-        ]);
+        $resolver->setDefaults([]);
     }
 }

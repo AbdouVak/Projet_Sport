@@ -4,27 +4,57 @@
 
 {% block body %}
 <div class="findSeance">
-
+{# {% set isFavoris = app.user and seance.getFavorisUsers().contains(app.user) %}
+            {% if isFavoris %}
+                <a href="{{ path('toggleSeanceFavoris', { 'id': seance.id, 'route': "app_find_seance", 'action': 'remove' }) }}" class="SeanceFavoris">
+                    <i class="fas fa-heart"></i>
+                </a>
+            {% else %}
+                <a href="{{ path('toggleSeanceFavoris', { 'id': seance.id, 'route': "app_find_seance", 'action': 'add' }) }}" class="SeanceFavoris">
+                    <i class="far fa-heart"></i>
+                </a>
+            {% endif %} #}
 {{ form_start(formChooseMuscle) }}
+    {{ form_row(formChooseMuscle.categorieMuscle, {'label': false, 'attr': {'class': 'field-seance'}}) }}
+    {{ form_row(formChooseMuscle.save, {'label': 'Submit', 'attr': {'class': 'input-seance'}}) }}                 
 {{ form_end(formChooseMuscle) }}
 
-
     <div class="container">
-    {% for seance in seances %}
-        <div class="seanceContainer">
-            <div class="seanceInfo">
-                <p>Crée par {{seance.user.pseudo}}</p>
+        {% for seance in seances %}
+        <div class="card-seance" id="card-seance-{{ loop.index }}">
+        
+            <div class="card-seance-header">
                 <h1>{{seance.nom}}</h1>
-                <div class="nbrExercice"><p>Nombre d'exercice : {{seance.nbrExercice}}</p></div>
+                {% set isFavoris = app.user and seance.getFavorisUsers().contains(app.user) %}
+                {% if isFavoris %}
+                    <a href="{{ path('toggleSeanceFavoris', { 'id': seance.id, 'route': "app_seance", 'action': 'add' }) }}" class="SeanceFavoris">
+                        <div class="coeur">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </a>
+                    {% else %}
+                    <a href="{{ path('toggleSeanceFavoris', { 'id': seance.id, 'route': "app_seance", 'action': 'add' }) }}" class="SeanceFavoris">
+                        <div class="coeur">
+                            <i class="fa-regular fa-heart"></i>
+                        </div>
+                    </a>
+                    {% endif %}
             </div>
-            <div class="seanceDesc" class="hidden">
-            <h3>Exercice :</h3>
-            {% for exercice in seance.getSeanceExercices %}
-                <p>{{exercice.exercice.nom}}</p>
-            {% endfor %}
+
+            <div class="card-seance-content">
+                <div class="column">
+                    <p>Exercice</p>
+                    {% for exercice in seance.getSeanceExercices %}
+                            {{exercice.exercice.nom}}
+                    {% endfor %}
+                </div>
             </div>
         </div>
+
     {% endfor %}
+    </div>
+    <div class="pagination">
+        {{ knp_pagination_render(seances) }}
     </div>
 </div>
 {% endblock %}

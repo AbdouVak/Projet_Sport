@@ -2,22 +2,16 @@
 {% block title %}Hello SeanceController!{% endblock %}
 
 {% block body %}
-    <div id='showSeance'> 
-        <div id='seanceTitre'>
-            <div class="title-container">
-                <div class="title">
-                    <h1>{{ seance.nom }}</h1>
-                </div>
-                {% if app.user.id == seance.user.id %}
-                    <div class="delete-link-container">
-                        <a href="{{ path('delete_seance', {'id': seance.id}) }}" class="delete-link"><i class="fa-solid fa-trash"></i></a>
-                    </div>
-                {% endif %}
-            </div>
+    <div class="editPage">
+        <div class="editContainer">
+        <div class="editTitre">
+            <h1>{{ seance.nom }}</h1>
+        {% if app.user.id == seance.user.id %}
+            <a href="{{ path('delete_seance', {'id': seance.id}) }}" class="delete-link"><i class="fa-solid fa-trash"></i></a>
+        {% endif %}
         </div>
 
-
-        <table>
+        <table class="seanceEdit">
             <thead>
                 <tr>
                     <th>Exerice</th>
@@ -32,71 +26,37 @@
             </thead>
             
             {% if app.user.id == seance.user.id %}
-                {% for exerciceSeance in seance.getSeanceExercices %}
-                </tbody>
-                    <tr>
-                        <form action="{{ path('edit_exerciceToSeance', {'seance_id': seance.id}) }}" method="post" class="edit-form">
-                            <td>
-                                <select name="exercices" id="exercice-select" class="input-field">
-                                    <option value="{{ null }}" selected disabled>------</option>
-                                    <option value="{{ exerciceSeance.exercice.id }}" selected>{{ exerciceSeance.exercice.nom }}</option>
-                                    {% for exercice in exercices %}
-                                        <option value="{{ exercice.id }}">{{ exercice.nom }}</option>
-                                    {% endfor %}
-                                </select>
-                            </td>
-                            <td><input type="number" value="{{ exerciceSeance.getSerie }}" name="serie" class="input-field"></td>
-                            <td><input type="number" value="{{ exerciceSeance.getRepetition }}" name="repetition" class="input-field"></td>
-                            <td><input type="number" value="{{ exerciceSeance.getPoid }}" name="poid" class="input-field"></td>
-                            <td><input type="submit" value="Éditer exercice" class="submit-btn"></td>
-                            <td><a href="{{ path('delete_SeanceExercice', {'id': exerciceSeance.id}) }}" class="delete-link">Supprimer</a></td>
-                        </form>
-
-                    </tr>
-                {% endfor %}
+            <tbody>
+                <tr>
+                    {% for arrayES in arrayESs %}
+                        {{ form_start(arrayES) }}
+                            <td>{{ form_row(arrayES.exercice, {'attr': {'class': 'select-edit'}}) }}</td>
+                            <td>{{ form_row(arrayES.serie, {'attr': {'class': 'field-edit'}}) }}</td>
+                            <td>{{ form_row(arrayES.repetition, {'attr': {'class': 'field-edit'}}) }}</td>
+                            <td>{{ form_row(arrayES.poid, {'attr': {'class': 'field-edit'}}) }}</td>
+                            <td>{{ form_row(arrayES.submit, {'attr': {'class': 'input-edit'}}) }}</td>
+                            <td>{{ form_row(arrayES._token) }}</td>
+                        {{ form_end(arrayES) }}
+                    {% endfor %}
+                </tr>
+            </tbody>
             {% else %}
-
-                {% for exerciceSeance in seance.getSeanceExercices %}
-                    <tr>
-                        <td>{{ exerciceSeance.exercice.nom }}</td>
-                        <td>{{ exerciceSeance.getSerie}}</td>
-                        <td>{{ exerciceSeance.getRepetition}}</td>
-                        <td>{{ exerciceSeance.getPoid}}</td>
-                    </tr>
-                </tbody>
-                {% endfor %}
-                
             {% endif %}
-            
         </table>
 
-</div>
+        <div class="formAdd">
         {% if app.user.id == seance.user.id %}
-        <div class='formAddSeance'>
-            <form action="{{ path('add_exerciceToSeance' ,{'seance_id': seance.id}) }}" method="post" class="exercise-form">
-                <select name="exercices" id="exercice-select" class="input-field">
-                    <option value="" disabled selected hidden>Choisissez un exercice</option>
-                    {% for exercice in exercices %}
-                        <option value="{{ exercice.id }}">{{ exercice.nom }}</option>
-                    {% endfor %}
-                </select>
 
-                <div class="input-group">
-                    <input type="number" name="serie" class="input-field" placeholder="Série">
-                </div>
-
-                <div class="input-group">
-                    <input type="number" name="repetition" class="input-field" placeholder="Répétition">
-                </div>
-
-                <div class="input-group">
-                    <input type="number" name="poid" class="input-field" placeholder="Poids">
-                </div>
-
-                <input type="submit" value="Ajouter exercice" class="submit-btn">
-            </form>
+            {{ form_start(formAddSeanceExercice) }}
+            {{ form_row(formAddSeanceExercice.exercice, {'attr': {'class': 'select-edit'}}) }}
+            {{ form_row(formAddSeanceExercice.serie, {'attr': {'class': 'field-login'}}) }}
+            {{ form_row(formAddSeanceExercice.repetition, {'attr': {'class': 'field-login'}}) }}
+            {{ form_row(formAddSeanceExercice.poid, {'attr': {'class': 'field-login'}}) }}
+            {{ form_row(formAddSeanceExercice._token, {'attr': {'class': 'field-login'}}) }}
+            {{ form_row(formAddSeanceExercice.submit, {'label': 'Enregistrer', 'attr': {'class': 'input-login'}}) }}
+        {{ form_end(formAddSeanceExercice) }}
         </div>
-
         {% endif %}
-    
+        </div>
+</div>
 {% endblock %}

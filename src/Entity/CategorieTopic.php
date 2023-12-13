@@ -18,6 +18,8 @@ class CategorieTopic
     #[ORM\Column(length: 50)]
     private ?string $categorie = null;
 
+    #[ORM\OneToMany(targetEntity: Topic::class, mappedBy: 'categorieTopic')]
+    private Collection $topics;
 
     public function __construct()
     {

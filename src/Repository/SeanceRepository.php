@@ -21,6 +21,29 @@ class SeanceRepository extends ServiceEntityRepository
         parent::__construct($registry, Seance::class);
     }
 
+    public function findSeancesByCategorieMuscle($categoryId)
+    {
+        return $this->createQueryBuilder('s')  // Assuming Seance has a direct relationship to CategorieMuscle
+            ->join('s.seanceExercices', 'se')
+            ->join('se.exercice', 'ecm')
+            ->join('ecm.CategorieMuscles', 'cm')
+            ->where('cm.id = ?1')
+            ->setParameter(1,$categoryId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findMostFavorisSeance()
+    {
+        return $this->createQueryBuilder('s')  // Assuming Seance has a direct relationship to CategorieMuscle
+            ->join('s.favorisUsers', 'uf')  // Assuming 'seanceFavoris' is the property in Seance entity
+            ->groupBy('s.id')
+            ->orderBy('COUNT(uf.id)', 'DESC') // Use the correct alias for the join table (uf.id)
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
+    }
+
 
 //    /**
 //     * @return Seance[] Returns an array of Seance objects

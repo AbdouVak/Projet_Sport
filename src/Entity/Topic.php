@@ -40,6 +40,7 @@ class Topic
 
     public function __construct()
     {
+        $this->verrouiller = false;
         $this->posts = new ArrayCollection();
     }
 
@@ -149,4 +150,6 @@ class Topic
 
         return $this;
     }
+
+    
 }

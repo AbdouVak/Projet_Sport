@@ -4,13 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Topic;
 use App\Form\ProfilType;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\SeanceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ProfilController extends AbstractController
@@ -46,13 +47,13 @@ class ProfilController extends AbstractController
 
 
     #[Route('/profil', name: 'app_profil')]
-    public function index(Request $request,ManagerRegistry $doctrine): Response
+    public function index(Request $request,ManagerRegistry $doctrine,SeanceRepository $seanceRepository): Response
     {
         $user = $this->getUser(); // Récupérer l'utilisateur connecté
 
         $form = $this->createForm(ProfilType::class);
         $form->handleRequest($request);
-
+        $seances = $seanceRepository->seanceUtilisateur($this->getUser()->getId());
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $doctrine->getManager();
 
@@ -78,9 +79,8 @@ class ProfilController extends AbstractController
             return $this->redirectToRoute('app_profil');
         }
 
-        // ...
-
         return $this->render('profil/index.html.twig', [
+            "seances" => $seances,
             'form' => $form->createView(),
         ]);
     }

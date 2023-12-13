@@ -7,14 +7,7 @@
         <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <meta name="description" content="
-            Rejoignez notre communauté passionnée de musculation! 
-            Découvrez des séances d'entraînement inspirantes, échangez des conseils, 
-            et <strong>créez vos propres séances personnalisées</strong>. 
-            Partagez-les avec d'autres passionnés, 
-            repoussez vos limites ensemble et atteignons nos objectifs de fitness. 
-            Rejoignez-nous maintenant et sculptez le meilleur de vous-même!"
-        >
+    
         <title>{% block title %}Porjet Sport!{% endblock %}</title>
         
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
@@ -27,37 +20,40 @@
   
   </body>
   <nav class="navbar">
-    <div class="navbar-logo">
-        <!-- Ajoutez votre logo ici -->
-    </div>
-    <div>
-        <div><a href="{{ path('app_home') }}">Accueil</a></div>
-        <div><a href="{{ path('app_forum') }}">Forum</a></div>
+      <div class="navbar-logo">
+          Fit-Share
+      </div>
+      <ul class="navbar-list">
+        <li><a href="{{ path('app_home') }}">Accueil</a></li>
+        <li><a href="{{ path('app_forum') }}">Forum</a></li>
 
         {% if app.user %}
-            <div><a href="{{ path('app_seance') }}">Créer vos Séances</a></div>
-            <div><a href="{{ path('app_find_seance') }}">Trouver des Séances</a></div>
-            <div><a href="{{ path('app_profil') }}">Mon profil</a></div>
-            <div><a href="{{ path('entraineur') }}">Entraineur</a></div>
-            <div><a href="{{ path('app_logout') }}">Se déconnecter</a></div>
+          <li><a href="{{ path('app_seance') }}">Séance</a></li>
+          <li><a href="{{ path('app_find_seance') }}">Trouver vos Séance</a></li>
+          <li><a href="{{ path('entraineur') }}">Entraineur</a></li>
+          <li><a href="{{ path('app_profil') }}">Mon profil</a></li>
+          <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
         {% endif %}
 
         {% if not app.user %}
-            <div><a href="{{ path('app_login') }}">Se connecter</a></div>
-            <div><a href="{{ path('app_register') }}">S'enregistrer</a></div>
+          <li><a href="{{ path('app_login') }}">Se connecter</a></li>
+          <li><a href="{{ path('app_register') }}">S'enregistrer</a></li>
         {% endif %}
-    </div>
-    <div class="burger-menu" onclick="toggleMenu()">
+      </ul>
+
+      <div class="burger-menu" onclick="toggleMenu()">
         <div class="bar"></div>
         <div class="bar"></div>
         <div class="bar"></div>
-    </div>
-</nav>
+      </div>
+    </nav>
 
         
         {% block body %}
         {% endblock %}
     </body>
+
+    {% include "cgu/footer.html.twig" %}
     {% block javascripts %}
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <script src="{{ asset ('js/script.js')}}"></script>

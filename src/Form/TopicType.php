@@ -38,7 +38,7 @@ class TopicType extends AbstractType
                 'choice_label' => 'categorie', // Le champ qui sera affiché dans la liste déroulante
             ])
             ->add('contenue', TextareaType::class, [
-                'attr' => ['readonly' => true,'rows' => 5],
+                'attr' => ['rows' => 5],
             ])
             ->add('csrf_token', HiddenType::class, [
                 'mapped' => false,

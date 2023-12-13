@@ -2,45 +2,71 @@
 {% block title %}Hello SeanceController!{% endblock %}
 
 {% block body %}
-    
+<div class="vosSeance">
 
-        {{ form_start(formAddSeance)}}
-            {{ form_row(formAddSeance.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom de la séance'}, 'label': false}) }}
-            {{ form_row(formAddSeance.submit, {'attr': {'class': 'btn btn-primary'}}) }}
-        {{ form_end(formAddSeance) }}
-
-
-    <div id='seanceContainer'>
-    <h1>Vos Séance</h1>
-    {# cet div permet de contenir les séances et l'ajout des séances #}
-
-        {# ces lignes de code créerons des card des séances #}
-        <div class='cardContainer'>
-            {# ces lignes de code créerons une card qui permet d'ajouter une séance#}
-            <a id="ajouterSeance">
-                <div class='cardSeance'>
-                    <h3>Ajouter Seance</h3>
+    <h1 class='title'>Vos Séance {{nbrSeance}}/9</h1>
+    {% if not app.user.seanceLimiteAtteint %}
+        <div class="modal-body">
+                    {{ form_start(formAddSeance)}}
+                        {{ form_row(formAddSeance.nom, {'label': false, 'attr': {'placeholder': 'Nom de la séance', 'class': 'field-seance'}}) }}
+                        {{ form_row(formAddSeance.exercice, {'label': false, 'attr': {'class': 'field-seance'}}) }}
+                        {{ form_row(formAddSeance.serie, {'label': false, 'attr': {'class': 'field-seance'}}) }}
+                        {{ form_row(formAddSeance.repetition, {'label': false, 'attr': {'class': 'field-seance'}}) }}
+                        {{ form_row(formAddSeance.poid, {'label': false, 'attr': {'class': 'field-seance'}}) }}
+                        
+                        {{ form_row(formAddSeance._token) }}
+                        {{ form_row(formAddSeance.submit, {'attr': {'class': 'input-seance'}}) }}
+                    {{ form_end(formAddSeance) }}
                 </div>
-            </a>
+        
 
-            {% for seance in seances %}
-            <a href="{{ path('show_seance',{'id': seance.id}) }}">
-                <div class='cardSeance'>
-                    {{ seance.nom }}
-                </div>
-            </a>
-            {% endfor %}
-
-            {% for seancesFav in app.user.SeanceFavoris %}
-            <a href="{{ path('show_seance',{'id': seancesFav.id}) }}">
-                <div class='cardSeance'>
-                    <h3>{{seancesFav.nom}}</h3>
-                </div>
-            </a> 
-            {% endfor %} 
+        {% else %}
+        <div class="ajoutSeanceContainer">
+            <h1>Seance Max Atteint</h1>
         </div>
-    </div>
+        {% endif %}
+                
 
+
+
+    <div class="container">
+        
+
+    {% for seance in seances %}
+        <div class="card-seance" id="card-seance-{{ loop.index }}">
+        
+            <div class="card-seance-header">
+                <h1>{{seance.nom}}</h1>
+                {% set isFavoris = app.user and seance.getFavorisUsers().contains(app.user) %}
+                {% if isFavoris %}
+                    <a href="{{ path('toggleSeanceFavoris', { 'id': seance.id, 'route': "app_seance", 'action': 'add' }) }}" class="SeanceFavoris">
+                        <div class="coeur">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </a>
+                    {% else %}
+                    <a href="{{ path('toggleSeanceFavoris', { 'id': seance.id, 'route': "app_seance", 'action': 'add' }) }}" class="SeanceFavoris">
+                        <div class="coeur">
+                            <i class="fa-regular fa-heart"></i>
+                        </div>
+                    </a>
+               {% endif %}
+            </div>
+
+            <div class="card-seance-content">
+                <div class="column">
+                    <p>Exercice</p>
+                    {% for exercice in seance.getSeanceExercices %}
+                            {{exercice.exercice.nom}}
+                    {% endfor %}
+                    <a href="{{ path('show_seance', {'id': seance.id}) }}">Editer</a>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+    </div>
+</div>
 {% endblock %}
 {% block javascripts %}
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

@@ -23,8 +23,26 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class)
-            ->add('pseudo', TextType::class)
+            ->add('email', EmailType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Email',
+                    'class' => 'field-register', // Ajouter la classe ici
+                ],
+            ])
+            ->add('pseudo', TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Pseudo',
+                    'class' => 'field-register', // Ajouter la classe ici
+                ],
+                'constraints' => [
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Le pseudo doit avoir au moins {{ limit }} caractères.',
+                    ]),
+                ],
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'label_html' => true,
                 'required' => true,
@@ -39,28 +57,44 @@ class RegistrationFormType extends AbstractType
             ->add('plainPassword', RepeatedType::class, [
                 'mapped' => false,
                 'type' => PasswordType::class,
-                'invalid_message' => 'The password fields must match.',
+                'invalid_message' => 'Les champs de mot de passe doivent correspondre.',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
+                'first_options'  => [
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => 'Mot de passe',
+                        'class' => 'field-register', // Ajouter la classe ici
+                    ],
+                ],
+                'second_options' => [
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => 'Répéter le mot de passe',
+                        'class' => 'field-register', // Ajouter la classe ici
+                    ],
+                ],
                 'error_bubbling' => true,
-                'constraints' => ([
+                'constraints' => [
                     new NotBlank([
-                        'message' => 'Entre un mot de passe',
+                        'message' => 'Entrez un mot de passe.',
                     ]),
-                    New Length([
+                    new Length([
                         'min' => 10,
-                        'minMessage' => 'Ton mot de passe est trop court ! il te faut 10 lettre/chiffre/character speciaux'
+                        'minMessage' => 'Votre mot de passe est trop court ! Il doit avoir au moins 10 caractères.',
                     ]),
-                    New Regex([
+                    new Regex([
                         'pattern' => '/^(?=.*[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$/',
-                        'message' => 'Votre mot de passe doit contenir au moin une majuscule & character spéciaux & chiffre'
-                    ])
-
-                ]) 
+                        'message' => 'Votre mot de passe doit contenir au moins une majuscule, un caractère spécial et un chiffre.',
+                    ]),
+                ],
             ])
-            ->add("captcha",ReCaptchaType::class)
+        
+            ->add("captcha",ReCaptchaType::class, [
+                'attr' => [
+                    'class' => 'input-register', // Ajouter la classe ici
+                ],
+            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer'
             ]);

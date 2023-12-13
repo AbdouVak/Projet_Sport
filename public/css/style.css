@@ -14,15 +14,67 @@ body{
     
 }
 
+/* pagination */
+.pagination{
+    text-decoration: none;
+    display: flex;
+    align-content: center;
+    margin-left: 25%;
+}
+
+.pagination span{
+    margin-right: 5px;
+    background-color: #e8f1f8;
+    border-radius: 2px;
+    padding: 2px;
+    color: #2d2d2d;
+    font-family: "poppins";
+}
+
+
+/* MODALE*/
+
+#seanceModal {
+    display: none;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    max-width: 600px;
+    margin: auto;
+}
+.modal-content {
+    max-width: 600px;
+    margin: auto;
+    transition: transform 0.3s ease-out;
+}
+
+#seanceModal.modal-opened {
+    display: block;
+}
+
+#seanceModal.modal-opened .modal-content {
+    transform: translateY(0);
+}
+
+
+
 /* ------------------------------------ NavBar ------------------------------------ */
+.middle{
+    display: flex;
+    flex-direction: row;
+    margin-right: 500px;
+}
 .navbar {
-    background-color: white;
+    background-color: #333;
     overflow: hidden;
     padding: 15px;
     display: flex;
     justify-content: space-between;
 }
-
+.navbar-logo{
+    color: #fe7000;
+}
 .navbar-list {
     list-style-type: none;
     margin: 0;
@@ -60,7 +112,7 @@ body{
         position: absolute;
         top: 65px;
         left: 0;
-        background-color: white;
+        background-color: #333;
     }
 
     .navbar-list.show {
@@ -71,7 +123,25 @@ body{
         display: flex;
     }
 }
-
+/**/
+.background {
+  background: 
+            linear-gradient(217deg,rgb(255, 72, 0), #fd833d, rgb(255, 72, 0));
+  background-size: 200% 100%;
+  animation: gradientAnimation 10s infinite linear;
+  }
+  
+  @keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+      }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+  }
 /*------------------------------------ Home ------------------------------------*/
 
 /* presentationForum */
@@ -81,9 +151,8 @@ body{
     padding-top: 50px;
     padding-left: 20px;
     padding-right: 20px;
-    background: rgb(255,123,18);
-    background: linear-gradient(150deg, #ffaa30 0%, #fe7000 60.21%); 
     min-height: 500px;
+    background: linear-gradient(150deg, #ffaa30 0%, #fe7000 60.21%); 
 }
 
 
@@ -199,7 +268,7 @@ body{
     padding-top: 50px;
     padding-left: 20px;
     padding-right: 20px;
-    background-color: #ece9e8;
+    background-color: #e8f1f8;
     min-height: 400px;
 }
 
@@ -253,7 +322,7 @@ body{
     position: absolute;
     user-select: none;
     overflow: hidden;
-    top: 750px;
+    top: 1100px;
     left: 150px;
     z-index: 1;
 }
@@ -313,14 +382,95 @@ body{
 
 }
 
+#presentationTrouverSeance {
+    height: 500px;
+    background-image: url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Ceci crée l'effet de parallax en fixant l'image de fond pendant le défilement */
+    display: flex;
+    align-content: center;
+    padding-left: 35%;
+    color: white; /* Couleur du texte pour le contraste avec l'image de fond */
+    flex-direction: column;
+}
+
+#presentationTrouverSeance h1{
+    margin-top: 50px;
+    font-size: 50px;
+}
+
+
+.slider-container {
+    max-width: 800px;
+    position: relative;
+    height: 350px;
+    overflow: hidden;
+    margin-left: 12%;
+}
+.menu {
+    position: absolute;
+    left: 0;
+    z-index: 11;
+    width: 100%;
+    bottom: 0;
+    margin-left: 15%;
+}
+.menu label {
+    cursor: pointer;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: #ccc;
+    border-radius: 50px;
+    margin: 0 0.2em 1em;
+}
+.menu label:hover,.menu label:focus {
+    background: #1c87c9;
+}
+.slide-input{
+    opacity: 0;
+}
+.slide-img {
+    width: 100%;
+    height: 300px;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    z-index: 10;
+    transition: left 0s 0.75s;
+}
+[id^="slide"]:checked + .slide-img {
+    left: 0;
+    z-index: 100;
+    transition: left 0.65s ease-out;
+}
+
+@media screen and (max-width: 768px) {
+    #presentationTrouverSeance {
+        padding-left: 20%;
+    }
+    
+    .menu {
+        margin-left: 25%;
+
+    }
+
+}
+
 /*------------------------------------ Forum ------------------------------------*/
 
 #forumContainer{
-    background-color: #fe7000;
-    height: 100vh;
-    justify-content: center;
+    background: 
+            linear-gradient(217deg,rgb(255, 72, 0), #fd833d, rgb(255, 72, 0));
+  background-size: 200% 100%;
+  animation: gradientAnimation 10s infinite linear;
 }
-
+#topicContainer{
+    background-color: #fe7000;
+    justify-content: center;
+    height: 91vh;
+}
 #forum{
     margin-left: 25%;
     margin-right: 25%;
@@ -356,6 +506,33 @@ body{
     display: flex;
     flex-direction: row;
     gap: 10px;
+}
+
+.topicContent{
+    margin: 10px;
+}
+
+.topic h2{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.post{
+    background-color: aliceblue;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.postInfoContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.post  Content{
+    margin: 10px;
 }
 
 .topic h2{
@@ -440,10 +617,34 @@ body{
 
 /*------------------------------------ TROUVER SEANCE ------------------------------------*/
 
-.findSeance{
-    background-color: #ffffff;
+.vosSeance{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background: 
+            linear-gradient(217deg,rgb(255, 72, 0), #fd833d, rgb(255, 72, 0));
+    background-size: 200% 100%;
+    animation: gradientAnimation 10s infinite linear;
+    height: 100vh;
+
+}
+
+.title{
+    background-color: #e2e2e2;
+    color: #2d2d2d;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 50px;
+}
+
+.findSeance{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: 
+            linear-gradient(217deg,rgb(255, 72, 0), #fd833d, rgb(255, 72, 0));
+  background-size: 200% 100%;
+  animation: gradientAnimation 10s infinite linear;
 }
 
 .container{
@@ -455,40 +656,442 @@ body{
     flex-wrap:wrap;
     width: 60%;
 }
-
-.seanceContainer{
+.ajoutSeanceContainer{
     height: 200px;
     width: 200px;
     background-color: #fe7000;
     border-radius: 5px;
     padding: 10px;
+
 }
 
-.seanceInfo{
+.card-seance{
+    width: 300px;
+    margin: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: rgb(230, 69, 69);
+    transition: 0.5s;
+}
+
+.card-seance:hover{
+    transform: translateY(-10px);
+}
+.card-seance:hover .coeur{
+    left: 0;
+}
+
+.card-seance-header {
+    position: relative;
+    height: 200px;
     display: flex;
     justify-content: center;
-    flex-direction: column;
-    user-select: none;
+    align-items: center;
+    transition: 0.5s;
 }
 
-.seanceInfo h1{
-    font-family: HeadingProTreble-ExtraBold,sans-serif;
-    -webkit-text-stroke: 1px #2d2d2d;
-    align-self: center;
-    margin-top: 65px;
-    margin-bottom: 65px;
-    color: #ffffff;
+.card-seance-header h1{
+    
+    font-family: "Inter",Helvetica,Arial,-apple-system,sans-serif;
 }
 
-.seanceDesc{
+.card-seance-header h1{
+    color: #e2e2e2;
+}
+
+
+.card-seance-content {
+    position: absolute;
     display: none;
-    user-select: none;
+    top: 50px;
+    left: 90px;
+      /* Masquer la div par défaut */
+    transition: 0.5s;
+    background-color: #e2e2e2;
+    border-radius: 5px;
+    font-size: 17px;
+    font-family: 'Poppins';
+    flex-direction: column;
 }
 
-.seanceDesc h3{
+.card-seance-content a{
+    margin-top: 10px;
+    text-decoration: none;
+    background-color: rgb(52, 52, 204);
+    display: flex;
+    padding: 5px;
+    border-radius: 5px;
+    justify-content: center;
+    color: #e2e2e2;
+    transition: 0.5s;
+}
+
+.card-seance-content a:hover{
+    background-color: #e2e2e2;
+    color:  rgb(52, 52, 204);
+    transition: 0.5s;
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
+    font-family: 'Poppins';
+    font-weight: 700;
+    padding: 10px;
+}
+
+.card-seance:hover .card-seance-content {
+    display:block;
+     /* Afficher la div lorsque la souris survole la carte */
+    transition: 0.5s;
+}
+.card-seance:hover .card-seance-header h1 {
+    display:none;
+     /* Afficher la div lorsque la souris survole la carte */
+    transition: 0.5s;
+}
+
+.coeur{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: rgb(255, 0, 106);
+    color: white;
+    font-size: 30px;
+    position: absolute;
+    top: 0;
+    left: -50px;
+    border-radius: 10px 0 0 0;
+    transition: 0.5s;
+}
+
+.nbr-exercice{
+    position: absolute;
+    top: 170px;
+    left: 10px;
+    font-size: 20px;
+    color: #e2e2e2;
+    font-family: 'Poppins';
+    font-weight: 700;
+}
+
+.field-seance{
+    padding: 5px;
+    border-radius: 10px;
+    border-color: transparent;
+    background-color: #ebebeb;
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.seanceDesc p{
-    font-size: 20px;
+.input-seance{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: rgb(52, 52, 204);
+    color: #ffffff;
+    border-color: transparent;
+    border-radius: 5px;
+    padding: 10px;
+    padding-left: 13px;
+    padding-right: 13px;
+    margin-top: 10px;
+    display:flex;
+    width: 30%;
+    margin-left: 35%;
+    margin-right: 35%;
+    transition: 0.5s;
+}
+
+.input-seance:hover{
+    background-color: #ffffff;
+    color: rgb(52, 52, 204);
+    transition: 0.5s;
+    border-color: rgb(52, 52, 204);
+}
+
+/*Inscription */
+
+#registerContainer{
+    background-color: #fe7000;
+    display: flex;
+    flex-direction: column;
+    height: 92vh;
+}
+
+#margin-left-right{
+    margin-top: 200px;
+    margin-left: 40%;
+    margin-right: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.margin-left-right h1{
+    display: flex;
+    justify-content: center;
+}
+
+#registerForm{
+    border-radius: 5px;
+    height: 250px;
+    padding: 20px;
+    display: flex;
+    font-family: "Inter",Helvetica,Arial,-apple-system,sans-serif;
+}
+
+.field-register{
+    padding: 5px;
+    padding-left: 15px;
+    border-radius: 10px;
+    border-color: transparent;
+    height: 40px;
+    width: 100%;
+    background-color: #ebebeb;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.input-register{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    color: #ffffff;
+    border-color: transparent;
+    border-radius: 5px;
+    padding: 10px;
+    padding-left: 13px;
+    padding-right: 13px;
+    margin-top: 10px;
+    display:flex;
+    margin-left: 40%;
+    transition: 0.5s;
+}
+
+.input-register:hover{
+    background-color: #ffffff;
+    color: rgb(52, 52, 204);
+    transition: 0.5s;
+    border-color: rgb(52, 52, 204);
+}
+@media screen and (max-width: 768px) {
+    #margin-left-right{
+        margin-left: 25%;
+        margin-right: 25%;
+    }
+}
+
+/* Connexion */
+
+#loginContainer{
+    background-color: #fe7000;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding-left: 37%;
+    padding-top: 50px;
+}
+
+.margin-left-right h1{
+    display: flex;
+    justify-content: center;
+}
+
+#edit-profil{
+    background-color: #e2e2e2;
+    color:#2d2d2d;
+    width: 400px;
+    height: 420px;
+}
+
+#loginForm{
+    border-radius: 5px;
+    height: 250px;
+    padding: 20px;
+    display: flex;
+    font-family: "Inter",Helvetica,Arial,-apple-system,sans-serif;
+}
+
+.titre-noir h1{
+    color: #2d2d2d;
+}
+
+
+.field-login{
+    padding: 5px;
+    padding-left: 15px;
+    border-radius: 10px;
+    border-color: transparent;
+    height: 40px;
+    width: 100%;
+    background-color: #ebebeb;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.input-login{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: rgb(52, 52, 204);
+    color: #ffffff;
+    border-color: transparent;
+    border-radius: 5px;
+    padding: 10px;
+    padding-left: 13px;
+    padding-right: 13px;
+    margin-top: 10px;
+    display:flex;
+    width: 30%;
+    margin-left: 35%;
+    margin-right: 35%;
+    transition: 0.5s;
+}
+
+.input-login:hover{
+    background-color: #ffffff;
+    color: rgb(52, 52, 204);
+    transition: 0.5s;
+    border-color: rgb(52, 52, 204);
+}
+@media screen and (max-width: 768px) {
+    #margin-left-right{
+        margin-left: 25%;
+        margin-right: 25%;
+    }
+}
+
+#title-delete{
+    display: flex;
+    justify-content: row;
+}
+
+#title-delete h1{
+    color: #e8f1f8;
+}
+
+/*editer seance*/
+
+
+.field-edit{
+    padding: 5px;
+    padding-left: 15px;
+    border-radius: 10px;
+    border-color: transparent;
+    height: 10px;
+    width: 20px;
+    background-color: #ebebeb;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.select-edit{
+    padding: 5px;
+    padding-left: 15px;
+    border-radius: 10px;
+    border-color: transparent;
+    background-color: #ebebeb;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+.input-edit{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: rgb(52, 52, 204);
+    color: #ffffff;
+    border-color: transparent;
+    border-radius: 5px;
+    padding: 10px;
+    padding-left: 13px;
+    padding-right: 13px;
+    margin-top: 10px;
+    display:flex;
+    margin-left: 35%;
+    margin-right: 35%;
+    transition: 0.5s;
+}
+
+.input-edit:hover{
+    background-color: #ffffff;
+    color: rgb(52, 52, 204);
+    transition: 0.5s;
+    border-color: rgb(52, 52, 204);
+}
+
+.editTitre{
+display: flex;
+flex-direction: row;
+margin-left: 40%;
+margin-bottom: 50px;
+}
+
+.editTitre h1{
+    color: #e2e2e2;
+}
+.delete-link{
+    color: #2d2d2d;
+    margin-top: 13px;
+    margin-left: 13px;
+    transition: 0.5s;
+}
+.delete-link:hover{
+    color: #ff0000;
+    margin-top: 13px;
+    margin-left: 13px;
+    transition: 0.5s;
+}
+.formAdd{
+    width: 300px;
+}
+
+.editPage{
+    background-color: #e2e2e2;
+    height: 100vh;
+    padding-left: 37%;
+    padding-top: 50px;
+}
+
+.formAdd{
+    margin-top: 50px;
+    margin-left: 60px;
+}
+
+.editContainer{
+    background-color: #fe7000;
+    border-radius: 5px;
+    width: 450px;
+    padding: 10px;
+}
+
+.ajoutSeanceContainer{
+    margin-top: 20px;
+    height: 70px;
+    color: #ad3131;
+    background-color: #e2e2e2;
+}
+
+footer{
+    height: 100px;
+    background-color: #2d2d2d;
+    text-align: center;
+    padding: 20px;
+    color: white; /* Set your desired text color */
+}
+footer a {
+    color: white; /* Set your desired link color */
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+.absolute{
+    position: absolute;
+    top: 600px;
+    gap: 10px;
 }

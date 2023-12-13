@@ -3,6 +3,7 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+<div id="loginContainer">
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -13,20 +14,18 @@
             You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
-<div class="center-div form-container">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-    <a href="{{ path('app_forgot_password_request')}}">Mot de passe oublié ?</a>
-    <input type="hidden" name="_csrf_token"
+    <div id="margin-left-right">
+        <h1 class="h3 mb-3 font-weight-normal">Connecte-Toi</h1>
+    
+        <input type="email" value="{{ last_username }}" name="email" class="field-login" id="inputEmail" placeholder="Email" class="form-control" autocomplete="email" required autofocus>
+        <input type="password" name="password" id="inputPassword" class="field-login" placeholder="Password" class="form-control" autocomplete="current-password" required>
+        <a href="{{ path('app_forgot_password_request')}}">Mot de passe oublié ?</a>
+        <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
+        <button  class="input-login" type="submit">Connecter</button>
+    </div>
 </form>
 </div>
 {% endblock %}

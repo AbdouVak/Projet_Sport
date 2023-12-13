@@ -3,16 +3,59 @@
 {% block title %}Hello ProfilController!{% endblock %}
 
 {% block body %}
-<div class="login">
-<div class="header-container">
-    <h1>Edit Profile</h1>
-    <a class="close-link" href="{{ path('profil_anonymize') }}">x</a>
+<div id="loginContainer">
+    <div id="edit-profil" class="margin-left-right">
+        <div class="editTitre" class="titre-noir">
+            <h1>Edit Profile</h1>
+            <a href="{{ path('profil_anonymize') }}" class="delete-link"><i class="fa-solid fa-trash"></i></a>
+        </div>
+
+        <div id="loginForm">
+        {{ form_start(form) }}
+            {{ form_row(form.pseudo, {'attr': {'class': 'field-login'}}) }}
+            {{ form_row(form.email, {'attr': {'class': 'field-login'}}) }}
+            <p>Confimer le changement avec votre mot de passe</p>
+            {{ form_row(form.currentPassword, {'attr': {'class': 'field-login'}}) }}
+            {{ form_row(form._token) }}
+            {{ form_row(form.submit, {'attr': {'class': 'input-login'}}) }}
+        {{ form_end(form) }}
+        </div>
+
+    </div>
+    {% for seance in seances %}
+        <div class="card-seance absolute" id="card-seance-{{ loop.index }}">
+        
+            <div class="card-seance-header">
+                <h1>{{seance.nom}}</h1>
+                {% set isFavoris = app.user and seance.getFavorisUsers().contains(app.user) %}
+                {% if isFavoris %}
+                    <a href="{{ path('toggleSeanceFavoris', { 'id': seance.id, 'route': "app_seance", 'action': 'add' }) }}" class="SeanceFavoris">
+                        <div class="coeur">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </a>
+                    {% else %}
+                    <a href="{{ path('toggleSeanceFavoris', { 'id': seance.id, 'route': "app_seance", 'action': 'add' }) }}" class="SeanceFavoris">
+                        <div class="coeur">
+                            <i class="fa-regular fa-heart"></i>
+                        </div>
+                    </a>
+               {% endif %}
+            </div>
+
+            <div class="card-seance-content">
+                <div class="column">
+                    <p>Exercice</p>
+                    {% for exercice in seance.getSeanceExercices %}
+                            {{exercice.exercice.nom}}
+                    {% endfor %}
+                    <a href="{{ path('show_seance', {'id': seance.id}) }}">Editer</a>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
 </div>
 
-    {{ form_start(form, {'attr': {'class': 'login-form-class'}}) }}
-    {{ form_row(form.pseudo, {'attr': {'class': 'login-input-class'}}) }}
-    {{ form_row(form.email, {'attr': {'class': 'login-input-class'}}) }}
-    {{ form_row(form.currentPassword, {'attr': {'class': 'login-input-class'}}) }}
-{{ form_end(form) }}
-</div>
+
 {% endblock %}

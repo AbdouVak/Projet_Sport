@@ -20,6 +20,57 @@
     </div>
 </section>
 
+<section id='presentationTrouverSeance'>
+    <h1>Trouver vos séance de sport !</h1>
+
+    <div class="slider-container">
+            <div class="menu">
+                <label for="slide-dot-1"></label>
+                <label for="slide-dot-2"></label>
+                <label for="slide-dot-3"></label>
+            </div>
+
+            {% for key, seance in seances %}
+                <input class="slide-input" id="slide-dot-{{ key + 1 }}" type="radio" name="slides" checked>
+                <div class="slide-img">
+                    <div class="card-seance" id="card-seance-{{ loop.index }}">
+        
+            <div class="card-seance-header">
+                <h1>{{seance.nom}}</h1>
+                {% set isFavoris = app.user and seance.getFavorisUsers().contains(app.user) %}
+                {% if isFavoris %}
+                    <a href="{{ path('toggleSeanceFavoris', { 'id': seance.id, 'route': "app_home", 'action': 'add' }) }}" class="SeanceFavoris">
+                        <div class="coeur">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </a>
+                    {% else %}
+                    <a href="{{ path('toggleSeanceFavoris', { 'id': seance.id, 'route': "app_home", 'action': 'add' }) }}" class="SeanceFavoris">
+                        <div class="coeur">
+                            <i class="fa-regular fa-heart"></i>
+                        </div>
+                    </a>
+                    <div class="nbr-exercice"><p>Nombre d'exercice : {{seance.nbrExercice}}</p></div>
+                {% endif %}
+            </div>
+
+            <div class="card-seance-content">
+                <div class="column">
+                    <p>Exercice</p>
+                    {% for exercice in seance.getSeanceExercices %}
+                            {{exercice.exercice.nom}}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+                </div>
+            {% endfor %}
+            
+
+    </div>
+
+</section>
+
 <section id='presentationSeance'>
     
     <div class='presentationInfoSeance'>

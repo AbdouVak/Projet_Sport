@@ -3,71 +3,49 @@
 {% block title %}Hello TopicController!{% endblock %}
 
 {% block body %}
-<div id='forum'>
-    <div id='topicContainer'>
+<div id='topicContainer'>
+    <div id='forum'>
 
         <h1>{{topic.titre}}</h1>
 
-        <div class='topic-container'>
-            <div class='topic-info-container'>
-                <div class='topic-info topic-user'>{{topic.user.pseudo}}</div>
-                <div class='topic-info topic-date'>{{topic.dateCreation|date('Y-m-d H:i:s')}}</div>
+        <div class='post'>
+            <div class='postInfoContainer'>
+                <div class='postPseudo'>{{topic.user.pseudo}}</div>
+                <div class='postDate'>{{topic.dateCreation|date('Y-m-d H:i:s')}}</div>
             </div>
 
-            <div class='topic-content'>
+            <div class='postContent'>
                 {{topic.contenue}}
             </div>
         </div>
 
         {% for post in posts %}
-            <div class='topic-container'>
+        
+            <div class='post'>
 
-                <div class='topic-info-container'>
-                    <div class='topic-info topic-user'>{{post.user.pseudo}}</div>
-                    <div class='topic-info topic-date'>{{post.dateCreation|date('Y-m-d H:i:s')}}</div>
+                <div class='postInfoContainer'>
+                    <div class='postPseudo'>{{post.user.pseudo}}</div>
+                    <div class='postDate'>{{post.dateCreation|date('Y-m-d H:i:s')}}</div>
                 </div>
 
-                <div class='topic-content'>
+                <div class='postContent'>
                     {{post.contenue}}
                 </div>
-
-                {% for seanceFav in post.seanceFavorite %}
-                    <div class='seanceFav'>
-                        <div>
-                            {{ seanceFav.nom }}
-                        </div>
-                        {% if app.user.hasSeance(seanceFav) %}
-                            <a href="{{ path('add_seanceFavoris',{'seance_id': seanceFav.id}) }}">
-                                <i class="fa-solid fa-heart"></i>
-                            </a>
-                        {% else %}
-                            <a href="{{ path('remove_seanceFavoris',{'seance_id': seanceFav.id}) }}">
-                                <i class="fa-regular fa-heart"></i>
-                            </a>
-                        {% endif %}
-                    </div>
-                {% endfor %}
                 
             </div>
         {% endfor %}
-
+    <div class="pagination">
+        {{ knp_pagination_render(posts) }}
+    </div>
         {% if app.user %}
             {% if topic.verrouiller == false %}
-                <div class="form-container">
-                    <form class="form" action="{{ path('add_post',{'topic_id': topic.id}) }}" method="post">
-                        <textarea class="form-textarea" name="contenue" id="contenue" rows="4" placeholder="Enter your content"></textarea>
-                        <select class="form-select" name="seance" id="seance-select">
-                            <option value="{{null}}" selected disabled>------</option>
-                            {% for seance in seancesPartager %}
-                                <option value="{{seance.id}}">{{seance.nom}}</option>
-                            {% endfor %}
-                        </select>
-
-                        <input class="form-submit" type="submit" value="Ajouter Post">
-                    </form>
-                </div>
+                {{ form_start(formAddPost) }}
+                    {{ form_widget(formAddPost.topic, { 'value': topic.id }) }}
+                {{ form_end(formAddPost) }}
             {% endif %}
         {% endif %}
     </div>
 </div>
+
+
 {% endblock %}

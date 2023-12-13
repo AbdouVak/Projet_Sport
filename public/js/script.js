@@ -1,32 +1,30 @@
 /* ------------------ MenuBurger ------------------*/
 function toggleMenu() {
-    var navbarList = document.querySelector('.navbar-list');
-    navbarList.classList.toggle('show');
+  var navbarList = document.querySelector('.navbar-list');
+  navbarList.classList.toggle('show');
 }
 
-
-/* ------------------ Seance ------------------*/
-
-var seanceContainer = document.querySelector('.seanceContainer');
-
-  // Ajoutez un écouteur d'événements pour le clic
-seanceContainer.addEventListener('click', function() {
-  toggleDivs();
+$(document).ready(function () {
+  $('#openSeanceModal').click(function () {
+      $('#seanceModal').addClass('modal-opened').modal('show');
+  });
 });
 
-function toggleDivs() {
-  var seanceInfo = document.querySelector('.seanceInfo');
-  var seanceDesc = document.querySelector('.seanceDesc');
+document.addEventListener("DOMContentLoaded", function () {
+  const container = document.querySelector(".carousel-container");
+  const slides = document.querySelectorAll(".carousel-slide");
 
-  // Vérifie si div1 est actuellement visible
-  if (seanceInfo.style.display !== 'none') {
-    seanceInfo.style.display = 'none';
-    seanceDesc.style.display = 'block'; // ou 'inline' ou 'inline-block' selon vos besoins
-  } else {
-    seanceInfo.style.display = 'block'; // ou 'inline' ou 'inline-block'
-    seanceDesc.style.display = 'none';
+  let counter = 1;
+
+  function slide() {
+      if (counter >= slides.length) counter = 0;
+      container.style.transform = "translateX(" + -counter * 100 + "%)";
+      counter++;
   }
-}
+
+  setInterval(slide, 3000); // Change slide every 3 seconds (adjust as needed)
+});
+
 
 /* ------------------ Modal ------------------*/
 // $(document).ready(function () {

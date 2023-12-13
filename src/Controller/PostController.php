@@ -26,10 +26,6 @@ class PostController extends AbstractController
         $post->setContenue($_POST['contenue']);
         $post->setDateCreation(new DateTime());
         $post->setTopic($topic);
-        if(isset($_POST['seance'])){
-            $seanceFavoris = $seanceRepository->find($_POST['seance']);
-            $post->addSeanceFavorite($seanceFavoris);
-        }
         $entityManager = $doctrine->getManager();
         $entityManager->persist($post);
         $entityManager->flush();

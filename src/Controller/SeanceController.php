@@ -4,17 +4,20 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Topic;
-use App\Form\SeanceType;
 use App\Entity\Seance;
-use App\Repository\SeanceRepository;
+use App\Form\SeanceType;
+use App\Entity\SeanceExercice;
+use App\Form\SeanceExerciceType;
+use App\Repository\SeanceRepository; 
 use App\Repository\ExerciceRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\SeanceExerciceRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class SeanceController extends AbstractController
 {
@@ -35,68 +38,86 @@ class SeanceController extends AbstractController
         return $this->redirectToRoute('app_seance');    
     }
 
-    #[Route('/seance/add', name: 'add_seance')]
-    public function add(Seance $seance = null,ManagerRegistry $doctrine): Response{
-        
-        $seance = new Seance();
-        $seance->setNom($_POST['nom']);
-        $seance->setUser($this->getUser());
-
-        $entityManager = $doctrine->getManager();
-        $entityManager->persist($seance);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_seance');    
-        // Affichage du formulaire
-        return $this->redirectToRoute('app_seance');
-    }
-
-    #[Route('/seance/showAdd/', name: 'show_add_seance')]
-    public function showAdd(): Response{
-
-        return $this->render('seance/add.html.twig');    
-    }
-
     #[Route('/seance/{id}', name: 'show_seance')]
-    public function show(seance $seance, SeanceRepository $seanceRepository,ExerciceRepository $exerciceRepository): Response{
+    #[ParamConverter('seance', options: ['id' => 'id'])]
+    public function show(Seance $seance, SeanceRepository $seanceRepository,ExerciceRepository $exerciceRepository,Request $request,ManagerRegistry $doctrine): Response{
 
         $seanceById = $seanceRepository->find($seance->getId());
-        
-        $exercices = $exerciceRepository->findAll();
+        $arrayESs = [];
+        foreach($seanceById->getSeanceExercices() as $seanceExecices){
 
+            $formEditSeanceExercice = $this->createForm(SeanceExerciceType::class,$seanceExecices);
+            $formEditSeanceExercice->handleRequest($request);
+            $arrayESs[] =  $formEditSeanceExercice->createView();
+        }
+
+        $formAddSeanceExercice = $this->createForm(SeanceExerciceType::class);
+        $formAddSeanceExercice->handleRequest($request);
+
+
+        if ($formAddSeanceExercice->isSubmitted() && $formAddSeanceExercice->isValid()) {
+            
+            $formData = $formAddSeanceExercice->getData();
+
+            $seanceExercice = new SeanceExercice();
+            $seanceExercice->setSerie($formData['serie']);
+            $seanceExercice->setRepetition($formData['repetition']);
+            $seanceExercice->setPoid($formData['poid']);
+            $seanceExercice->setExercice($formData['exercice']);
+            $seanceExercice->setSeance($seance);
+
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($seanceExercice);
+            $entityManager->flush();
+        }
         return $this->render('seance/show.html.twig', [
+            
+            'formAddSeanceExercice' => $formAddSeanceExercice->createView(),
             'seance' => $seanceById,
-            'exercices' => $exercices
+            'arrayESs' =>$arrayESs
         ]);    
     }
 
     #[Route('/seance', name: 'app_seance')]
-    public function index(Seance $seance = null,SeanceRepository $seanceRepository,Request $request,ManagerRegistry $doctrine): Response
+    public function index(SeanceRepository $seanceRepository,Request $request,ManagerRegistry $doctrine): Response
     {
-        if(!$seance){
-            $seance = new Seance();
-        }
 
-        $formAddSeance = $this->createForm(SeanceType::class,$seance);
+        $formAddSeance = $this->createForm(SeanceType::class);
         $formAddSeance->handleRequest($request);
 
         if ($formAddSeance->isSubmitted() && $formAddSeance->isValid()) {
             $token = $this->csrfTokenManager->getToken('seance')->getValue();
             
             if ($this->isCsrfTokenValid('seance', $token)) {
-                $seance = $formAddSeance->getData();
+                $seance = new Seance();
+                $formData = $formAddSeance->getData();
                 $seance->setUser($this->getUser());
-                // Le formulaire est soumis et valide
+                $seance->setNom($formData['nom']);
+
+                $seanceExercice = new SeanceExercice();
+                $seanceExercice->setSerie($formData['serie']);
+                $seanceExercice->setRepetition($formData['repetition']);
+                $seanceExercice->setPoid($formData['poid']);
+                $seanceExercice->setExercice($formData['exercice']);
+                $seanceExercice->setSeance($seance);
+
                 $entityManager = $doctrine->getManager();
                 $entityManager->persist($seance);
                 $entityManager->flush();
+
+                $entityManager = $doctrine->getManager();
+                $entityManager->persist($seanceExercice);
+                $entityManager->flush();
             }
         }
+
         $seances = $seanceRepository->seanceUtilisateur( $this->getUser()->getId());
+        $nbrSeance= count($seances);
         return $this->render('seance/index.html.twig', [
+            "nbrSeance" =>$nbrSeance,
             "seances" => $seances,
             "User"=>$this->getUser(),
-            'formAddSeance' => $formAddSeance->createView()
+            'formAddSeance' => $formAddSeance->createView(),
         ]);
     }
 }

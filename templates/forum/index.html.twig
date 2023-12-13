@@ -35,13 +35,15 @@
                 {% endif %}
             </div>
             <h2>{{topic.titre}}</h2>
-            <div>
-                <p>{{topic.contenue}}</p>
+            <div class='topicContent'>
+                {{topic.contenue}}
             </div>
         </a>
     </div>
     {% endfor %}
-
+    <div class="pagination">
+        {{ knp_pagination_render(topics) }}
+    </div>
 
     {% if app.user %}
         
@@ -62,5 +64,6 @@
         </div>
     {% endif %}
 </div>
+
 </div>
 {% endblock %}

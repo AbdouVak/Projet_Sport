@@ -2,15 +2,20 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\SeanceRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
     #[Route('/home', name: 'app_home')]
-    public function index(): Response
+    public function index(SeanceRepository $seanceRepository): Response
     {
-        return $this->render('home/index.html.twig', []);
+        $seances = $seanceRepository->findMostFavorisSeance();
+
+        return $this->render('home/index.html.twig', [
+            "seances" => $seances
+        ]);
     }
 }

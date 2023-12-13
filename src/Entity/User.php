@@ -46,15 +46,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Seance::class)]
     private Collection $seances;
 
-    #[ORM\ManyToMany(targetEntity: Seance::class, inversedBy: 'users')]
-    private Collection $SeanceFavoris;
+    #[ORM\ManyToMany(targetEntity: Seance::class, inversedBy: 'favorisUsers')]
+    private Collection $seanceFavoris;
+
 
     public function __construct()
     {
         $this->topics = new ArrayCollection();
         $this->posts = new ArrayCollection();
         $this->seances = new ArrayCollection();
-        $this->SeanceFavoris = new ArrayCollection();
+        $this->seanceFavoris = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -241,18 +242,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function hasSeance(Seance $seance): bool
+    {
+        return $this->seances->contains($seance);
+    }
+
+    public function seanceLimiteAtteint(): bool
+    {
+        
+        $seances = $this->getSeances();
+
+        if ($seances->count() >= 9) {
+            return true;
+        }
+        
+        return false;
+    }
+
     /**
      * @return Collection<int, Seance>
      */
     public function getSeanceFavoris(): Collection
     {
-        return $this->SeanceFavoris;
+        return $this->seanceFavoris;
     }
 
     public function addSeanceFavori(Seance $seanceFavori): static
     {
-        if (!$this->SeanceFavoris->contains($seanceFavori)) {
-            $this->SeanceFavoris->add($seanceFavori);
+        if (!$this->seanceFavoris->contains($seanceFavori)) {
+            $this->seanceFavoris->add($seanceFavori);
         }
 
         return $this;
@@ -260,13 +278,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeSeanceFavori(Seance $seanceFavori): static
     {
-        $this->SeanceFavoris->removeElement($seanceFavori);
+        $this->seanceFavoris->removeElement($seanceFavori);
 
         return $this;
     }
 
-    public function hasSeance(Seance $seance): bool
-    {
-        return $this->seances->contains($seance);
-    }
+    public function __toString(): string
+{
+    return $this->getPseudo(); // Ou toute autre propriété que vous souhaitez afficher
+}
 }

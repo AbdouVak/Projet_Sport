@@ -21,6 +21,18 @@ class CategorieTopicRepository extends ServiceEntityRepository
         parent::__construct($registry, CategorieTopic::class);
     }
 
+    public function findMostPopularTopics()
+    {
+        return $this->createQueryBuilder('ct')
+            ->leftJoin('ct.topics', 't')
+            ->groupBy('ct.id')
+            ->orderBy('COUNT(t.id)', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
+    }
+
+
 //    /**
 //     * @return CategorieTopic[] Returns an array of CategorieTopic objects
 //     */

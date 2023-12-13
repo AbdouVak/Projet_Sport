@@ -24,13 +24,15 @@ class Seance
     #[ORM\ManyToOne(inversedBy: 'seances')]
     private ?User $user = null;
 
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'SeanceFavoris')]
-    private Collection $users;
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'seanceFavoris')]
+    private Collection $favorisUsers;
 
 
+  
     public function __construct()
     {
         $this->seanceExercices = new ArrayCollection();
+        $this->favorisUsers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,7 +109,6 @@ class Seance
     {
         if (!$this->users->contains($user)) {
             $this->users->add($user);
-            $user->addSeanceFavori($this);
         }
 
         return $this;
@@ -116,7 +117,6 @@ class Seance
     public function removeUser(User $user): static
     {
         if ($this->users->removeElement($user)) {
-            $user->removeSeanceFavori($this);
         }
 
         return $this;
@@ -124,7 +124,38 @@ class Seance
 
     public function nbrExercice(): int
     {
-        
         return count($this->getSeanceExercices());
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getFavorisUsers(): Collection
+    {
+        return $this->favorisUsers;
+    }
+
+    public function addFavorisUser(User $favorisUser): static
+    {
+        if (!$this->favorisUsers->contains($favorisUser)) {
+            $this->favorisUsers->add($favorisUser);
+            $favorisUser->addSeanceFavori($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorisUser(User $favorisUser): static
+    {
+        if ($this->favorisUsers->removeElement($favorisUser)) {
+            $favorisUser->removeSeanceFavori($this);
+        }
+
+        return $this;
+    }
+
+    public function nbrFavoris(): int
+    {
+        return count($this->getFavorisUsers());
     }
 }
